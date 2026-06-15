@@ -3,7 +3,7 @@ from fastapi import FastAPI, UploadFile, File, HTTPException
 from pydantic import BaseModel
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
-from app.ingest import ingest_text, setup_db, embed_and_store, chunk_text
+from app.ingest import setup_db, embed_and_store, chunk_text
 from app.query import query
 
 load_dotenv()
@@ -33,12 +33,12 @@ async def upload_pdf(file: UploadFile = File(...)):
     with open(tmp_path, "wb") as f:
         f.write(content)
 
-    from app.ingest import extract_text, clean_text, chunk_text, embed_and_store, EMBED_MODEL
+    from app.ingest import extract_text, clean_text
     raw_text = extract_text(tmp_path)
     chunks = chunk_text(clean_text(raw_text))
     embed_and_store(chunks, source=file.filename, engine=engine)
 
-    return {"message": f"Ingest completed", "chunks": len(chunks)}
+    return {"message": "Ingest completed", "chunks": len(chunks)}
 
 @app.post("/query", response_model=QueryResponse)
 async def query_endpoint(request: QueryRequest):
