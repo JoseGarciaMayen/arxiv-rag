@@ -13,7 +13,7 @@ export function useChat() {
             .catch(() => { })
     }, [])
 
-    const sendMessage = async (question: string) => {
+    const sendMessage = async (question: string, baseMessages?: Message[]) => {
         const userMessage: Message = {
             id: crypto.randomUUID(),
             role: 'user',
@@ -24,7 +24,7 @@ export function useChat() {
         setIsLoading(true)
 
         try {
-            const history = messages
+            const history = (baseMessages ?? messages)
                 .slice(-6)
                 .map(m => ({ role: m.role, content: m.content }))
 
@@ -118,12 +118,10 @@ export function useChat() {
         if (userIndex < 0) return;
 
         const question = messages[userIndex].content;
+        const truncated = messages.slice(0, userIndex);
 
-        // Remove the user message and everything after it
-        setMessages(prev => prev.slice(0, userIndex));
-
-        // Resend the question
-        sendMessage(question);
+        setMessages(truncated);
+        sendMessage(question, truncated);
     }
 
     return { messages, isLoading, uploadedFiles, sendMessage, uploadPDF, deleteFile, clearFiles, regenerateMessage }
