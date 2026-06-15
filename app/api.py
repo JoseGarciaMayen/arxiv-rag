@@ -11,7 +11,10 @@ from app.query import query
 load_dotenv()
 
 app = FastAPI(title="ArXiv RAG API")
-engine = create_engine(os.getenv("DATABASE_URL"))
+db_url = os.getenv("DATABASE_URL")
+if not db_url:
+    raise RuntimeError("DATABASE_URL environment variable is not set")
+engine = create_engine(db_url)
 
 class QueryRequest(BaseModel):
     question: str
