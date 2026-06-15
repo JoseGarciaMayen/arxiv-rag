@@ -51,7 +51,10 @@ def setup_db(engine):
         conn.commit()
 
 def extract_text(pdf_path: str) -> str:
-    doc = fitz.open(pdf_path)
+    try:
+        doc = fitz.open(pdf_path)
+    except Exception as e:
+        raise ValueError(f"Cannot read PDF: {e}") from e
     pages = [page.get_text() for page in doc]
 
     threshold = max(3, len(pages) * 0.30)
