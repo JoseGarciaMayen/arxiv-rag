@@ -1,0 +1,9 @@
+.venv
+.git
+.vscode
+node_modules
+docs/
+frontend/node_modules
+__pycache__
+*.pyc
+.env
