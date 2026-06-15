@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme {
+  --color-accent-blue: #0b57d0;
+}
+
+@layer base {
+  :root {
+    --color-bg-main: #ffffff;
+    --color-bg-card: #d8dadc;
+    --color-bg-hover: #e1e5ea;
+    --color-text-primary: #1f1f1f;
+    --color-text-secondary: #444746;
+    --color-border: #e3e3e3;
+    --color-code-bg: #f8f9fa;
+  }
+
+  .dark {
+    --color-bg-main: #131314;
+    --color-bg-card: #1e1f20;
+    --color-bg-hover: #282a2c;
+    --color-text-primary: #e3e3e3;
+    --color-text-secondary: #c4c7c5;
+    --color-border: #3c4043;
+    --color-code-bg: #131314;
+    --color-accent-blue: #0b57d0;
+  }
+
+  body {
+    background-color: var(--color-bg-main);
+    color: var(--color-text-primary);
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  #root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #dadce0;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #bdc1c6;
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background: #3c4043;
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: #5f6368;
+  }
+}
+
+/* Animations */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
