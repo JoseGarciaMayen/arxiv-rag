@@ -5,12 +5,16 @@ export function useChat() {
     const [messages, setMessages] = useState<Message[]>([])
     const [isLoading, setIsLoading] = useState(false)
     const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([])
+    const [documentsError, setDocumentsError] = useState<string | null>(null)
 
     useEffect(() => {
         fetch('/api/documents')
-            .then(r => r.json())
+            .then(r => {
+                if (!r.ok) throw new Error(`Failed to load documents (${r.status})`)
+                return r.json()
+            })
             .then(data => setUploadedFiles(data.documents ?? []))
-            .catch(() => { })
+            .catch((err: unknown) => setDocumentsError(err instanceof Error ? err.message : 'Failed to load documents'))
     }, [])
 
     const sendMessage = async (question: string, baseMessages?: Message[]) => {
@@ -124,5 +128,5 @@ export function useChat() {
         sendMessage(question, truncated);
     }
 
-    return { messages, isLoading, uploadedFiles, sendMessage, uploadPDF, deleteFile, clearFiles, regenerateMessage }
+    return { messages, isLoading, uploadedFiles, documentsError, sendMessage, uploadPDF, deleteFile, clearFiles, regenerateMessage }
 }
