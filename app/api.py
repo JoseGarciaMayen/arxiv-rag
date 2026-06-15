@@ -1,13 +1,12 @@
 import os
-import uuid, pathlib
+import tempfile
 
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from pydantic import BaseModel
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
-from app.ingest import setup_db, embed_and_store, chunk_text
+from app.ingest import setup_db, embed_and_store, chunk_text, extract_text, clean_text
 from app.query import query
-from app.ingest import extract_text, clean_text
 
 load_dotenv()
 
@@ -32,14 +31,16 @@ async def upload_pdf(file: UploadFile = File(...)):
 
     content = await file.read()
 
-    safe_name = f"{uuid.uuid4()}.pdf"
-    tmp_path = f"/tmp/{safe_name}"
-    with open(tmp_path, "wb") as f:
-        f.write(content)
+    with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
+        tmp.write(content)
+        tmp_path = tmp.name
 
-    raw_text = extract_text(tmp_path)
-    chunks = chunk_text(clean_text(raw_text))
-    embed_and_store(chunks, source=file.filename, engine=engine)
+    try:
+        raw_text = extract_text(tmp_path)
+        chunks = chunk_text(clean_text(raw_text))
+        embed_and_store(chunks, source=file.filename, engine=engine)
+    finally:
+        os.remove(tmp_path)
 
     return {"message": "Ingest completed", "chunks": len(chunks)}
 
@@ -47,7 +48,7 @@ async def upload_pdf(file: UploadFile = File(...)):
 async def query_endpoint(request: QueryRequest):
     if not request.question.strip():
         raise HTTPException(status_code=400, detail="Question can't be empty")
-    
+
     answer = query(request.question, engine, request.history)
     return QueryResponse(answer=answer)
 
@@ -68,4 +69,4 @@ async def delete_document(filename: str):
             {"source": filename}
         )
         conn.commit()
-    return {"message": f"{filename} eliminado"}
+    return {"message": f"{filename} deleted"}
