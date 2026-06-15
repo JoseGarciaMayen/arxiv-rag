@@ -10,7 +10,7 @@ export function useChat() {
         fetch('/api/documents')
             .then(r => r.json())
             .then(data => setUploadedFiles(data.documents ?? []))
-            .catch(() => {})
+            .catch(() => { })
     }, [])
 
     const sendMessage = async (question: string) => {
@@ -33,6 +33,7 @@ export function useChat() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ question, history })
             })
+            if (!res.ok) throw new Error(`API error: ${res.status}`)
             const data = await res.json()
             setMessages(prev => [...prev, {
                 id: crypto.randomUUID(),
@@ -99,7 +100,7 @@ export function useChat() {
                 return file.name;
             })
         );
-        
+
         const successfulDeletes = new Set(
             results
                 .filter((r): r is PromiseFulfilledResult<string> => r.status === 'fulfilled')
@@ -117,10 +118,10 @@ export function useChat() {
         if (userIndex < 0) return;
 
         const question = messages[userIndex].content;
-        
+
         // Remove the user message and everything after it
         setMessages(prev => prev.slice(0, userIndex));
-        
+
         // Resend the question
         sendMessage(question);
     }
