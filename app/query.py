@@ -96,7 +96,6 @@ def query(question: str, engine=None, history: list[dict] | None = None) -> str:
         engine = create_engine(DB_URL)
     search_query = rewrite_query(question, history or [])
     chunks = search_chunks(search_query, engine)
-    print("CHUNKS: ", chunks)
 
     if not chunks:
         return "I couldn't find relevant information in the indexed papers for that question."
