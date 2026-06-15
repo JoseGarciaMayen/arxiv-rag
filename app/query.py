@@ -1,13 +1,10 @@
 import os
 from dotenv import load_dotenv
-from sentence_transformers import SentenceTransformer, CrossEncoder
 from sqlalchemy import create_engine, text
 from groq import Groq
+from app.models import EMBED_MODEL, RERANK_MODEL
 
 load_dotenv()
-
-EMBED_MODEL = SentenceTransformer("all-MiniLM-L6-v2")
-RERANK_MODEL = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-12-v2")
 DB_URL = os.getenv("DATABASE_URL")
 groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 

@@ -5,12 +5,10 @@ from pathlib import Path
 from dotenv import load_dotenv
 import fitz  # pymupdf
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from sentence_transformers import SentenceTransformer
 from sqlalchemy import create_engine, text
+from app.models import EMBED_MODEL
 
 load_dotenv()
-
-EMBED_MODEL = SentenceTransformer("all-MiniLM-L6-v2")
 DB_URL = os.getenv("DATABASE_URL")
 
 # Cleaning
