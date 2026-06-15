@@ -2,10 +2,12 @@ import os
 import re
 from collections import Counter
 from pathlib import Path
-from dotenv import load_dotenv
+
 import fitz  # pymupdf
+from dotenv import load_dotenv
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from sqlalchemy import create_engine, text
+
 from app.models import EMBED_MODEL
 
 load_dotenv()
@@ -13,30 +15,32 @@ DB_URL = os.getenv("DATABASE_URL")
 
 # Cleaning
 _TRAILING_SECTION_RE = re.compile(
-    r'\n\s*(?:references|bibliography|acknowledgements?|appendix)\s*\n',
+    r"\n\s*(?:references|bibliography|acknowledgements?|appendix)\s*\n",
     re.IGNORECASE,
 )
-_URL_RE = re.compile(r'https?://\S+|www\.\S+', re.IGNORECASE)
-_HYPHEN_BREAK_RE = re.compile(r'(\w)-\n(\w)')
-_EXCESS_NEWLINE_RE = re.compile(r'\n{3,}')
+_URL_RE = re.compile(r"https?://\S+|www\.\S+", re.IGNORECASE)
+_HYPHEN_BREAK_RE = re.compile(r"(\w)-\n(\w)")
+_EXCESS_NEWLINE_RE = re.compile(r"\n{3,}")
 
 # First-line patterns that signal a noisy/header chunk
 _NOISY_FIRST_LINE_RE = re.compile(
-    r'^(?:'
-    r'published\s+(?:as\s+)?a?\s*(?:conference|journal|workshop)'
-    r'|under\s+review\s+as'
-    r'|preprint\b'
-    r'|proceedings\s+of'
-    r'|\[\d[\d,\s]*\]\s+\w'
-    r'|\d+$'
-    r')',
+    r"^(?:"
+    r"published\s+(?:as\s+)?a?\s*(?:conference|journal|workshop)"
+    r"|under\s+review\s+as"
+    r"|preprint\b"
+    r"|proceedings\s+of"
+    r"|\[\d[\d,\s]*\]\s+\w"
+    r"|\d+$"
+    r")",
     re.IGNORECASE,
 )
+
 
 def setup_db(engine):
     with engine.connect() as conn:
         conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector"))
-        conn.execute(text("""
+        conn.execute(
+            text("""
             CREATE TABLE IF NOT EXISTS chunks (
                 id SERIAL PRIMARY KEY,
                 source TEXT,
@@ -44,11 +48,15 @@ def setup_db(engine):
                 embedding vector(384),
                 content_tsv tsvector GENERATED ALWAYS AS (to_tsvector('english', content)) STORED
             )
-        """))
-        conn.execute(text("""
+        """)
+        )
+        conn.execute(
+            text("""
             CREATE INDEX IF NOT EXISTS chunks_tsv_idx ON chunks USING GIN (content_tsv)
-        """))
+        """)
+        )
         conn.commit()
+
 
 def extract_text(pdf_path: str) -> str:
     try:
@@ -72,16 +80,18 @@ def extract_text(pdf_path: str) -> str:
 
     return "\n".join(cleaned)
 
+
 def clean_text(raw: str) -> str:
-    raw = raw.replace('\x00', '')
+    raw = raw.replace("\x00", "")
     match = _TRAILING_SECTION_RE.search(raw)
     if match:
-        raw = raw[:match.start()]
-    raw = _HYPHEN_BREAK_RE.sub(r'\1\2', raw)
-    raw = _URL_RE.sub('', raw)
-    raw = _EXCESS_NEWLINE_RE.sub('\n\n', raw)
+        raw = raw[: match.start()]
+    raw = _HYPHEN_BREAK_RE.sub(r"\1\2", raw)
+    raw = _URL_RE.sub("", raw)
+    raw = _EXCESS_NEWLINE_RE.sub("\n\n", raw)
 
     return raw.strip()
+
 
 def chunk_text(text: str) -> list[str]:
     splitter = RecursiveCharacterTextSplitter(
@@ -90,13 +100,14 @@ def chunk_text(text: str) -> list[str]:
     )
     return splitter.split_text(text)
 
+
 def is_valid_chunk(chunk: str) -> bool:
     stripped = chunk.strip()
 
     if len(stripped) < 100:
         return False
 
-    first_line = stripped.split('\n')[0].strip()
+    first_line = stripped.split("\n")[0].strip()
     if _NOISY_FIRST_LINE_RE.match(first_line):
         return False
 
@@ -105,7 +116,7 @@ def is_valid_chunk(chunk: str) -> bool:
         return False
 
     # Reject chunks dominated by citation markers like [1], [2, 3], [12]
-    citation_hits = len(re.findall(r'\[\d[\d,\s]*\]', stripped))
+    citation_hits = len(re.findall(r"\[\d[\d,\s]*\]", stripped))
     if citation_hits >= 5:
         return False
 
@@ -121,16 +132,24 @@ def is_valid_chunk(chunk: str) -> bool:
 
     return True
 
+
 def embed_and_store(chunks: list[str], source: str, engine):
     if engine is None:
         engine = create_engine(DB_URL)
     valid_chunks = [c for c in chunks if is_valid_chunk(c)]
     embeddings = EMBED_MODEL.encode(valid_chunks, show_progress_bar=True)
     with engine.connect() as conn:
-        for chunk, embedding in zip(valid_chunks, embeddings):
+        for chunk, embedding in zip(valid_chunks, embeddings, strict=False):
             conn.execute(
-                text("INSERT INTO chunks (source, content, embedding) VALUES (:source, :content, :embedding)"),
-                {"source": source.replace('\x00', ''), "content": chunk.replace('\x00', ''), "embedding": str(embedding.tolist())}
+                text(
+                    "INSERT INTO chunks (source, content, embedding) "
+                    "VALUES (:source, :content, :embedding)"
+                ),
+                {
+                    "source": source.replace("\x00", ""),
+                    "content": chunk.replace("\x00", ""),
+                    "embedding": str(embedding.tolist()),
+                },
             )
         conn.commit()
 
@@ -148,6 +167,8 @@ def ingest_text(pdf_path: str):
     embed_and_store(chunks, source=Path(pdf_path).name, engine=engine)
     print("Ingestion complete.")
 
+
 if __name__ == "__main__":
     import sys
+
     ingest_text(sys.argv[1])

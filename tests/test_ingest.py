@@ -1,5 +1,4 @@
-import pytest
-from app.ingest import clean_text, chunk_text, is_valid_chunk
+from app.ingest import chunk_text, clean_text, is_valid_chunk
 
 
 class TestCleanText:

@@ -1,6 +1,13 @@
+from unittest.mock import MagicMock
+
 import pytest
-from unittest.mock import MagicMock, patch
-from app.query import reciprocal_rank_fusion, build_system_message, rerank, rewrite_query
+
+from app.query import (
+    build_system_message,
+    reciprocal_rank_fusion,
+    rerank,
+    rewrite_query,
+)
 
 
 def _chunk(id: int, content: str = "text", source: str = "paper.pdf") -> dict:
@@ -54,6 +61,7 @@ class TestBuildSystemMessage:
 class TestRerank:
     def test_orders_chunks_by_score_descending(self):
         from app.query import RERANK_MODEL
+
         RERANK_MODEL.predict.return_value = [0.1, 0.9, 0.5]
         chunks = [_chunk(1), _chunk(2), _chunk(3)]
         result = rerank("question", chunks)
@@ -70,6 +78,7 @@ class TestRewriteQuery:
 
     def test_calls_groq_and_returns_rewritten_query(self):
         import app.query as q
+
         mock_resp = MagicMock()
         mock_resp.choices = [MagicMock(message=MagicMock(content="  rewritten query  "))]
         original_client = q.groq_client
@@ -85,6 +94,7 @@ class TestRewriteQuery:
 
     def test_raises_if_groq_returns_no_choices(self):
         import app.query as q
+
         mock_resp = MagicMock()
         mock_resp.choices = []
         original_client = q.groq_client

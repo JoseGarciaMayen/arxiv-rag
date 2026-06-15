@@ -1,11 +1,13 @@
+from unittest.mock import MagicMock, patch
+
 import pytest
-from unittest.mock import patch, MagicMock
 from fastapi.testclient import TestClient
 
 
 @pytest.fixture(scope="module")
 def test_app():
     from app.api import app
+
     return app
 
 
@@ -33,10 +35,12 @@ class TestUploadEndpoint:
         assert "pdf" in res.json()["detail"].lower()
 
     def test_successful_upload_returns_chunk_count(self, client):
-        with patch("app.api.extract_text", return_value="raw text"), \
-             patch("app.api.clean_text", return_value="clean text"), \
-             patch("app.api.chunk_text", return_value=["chunk1", "chunk2", "chunk3"]), \
-             patch("app.api.embed_and_store"):
+        with (
+            patch("app.api.extract_text", return_value="raw text"),
+            patch("app.api.clean_text", return_value="clean text"),
+            patch("app.api.chunk_text", return_value=["chunk1", "chunk2", "chunk3"]),
+            patch("app.api.embed_and_store"),
+        ):
             res = client.post(
                 "/upload",
                 files={"file": ("paper.pdf", b"%PDF-1.4 fake", "application/pdf")},
@@ -45,7 +49,10 @@ class TestUploadEndpoint:
         assert res.json()["chunks"] == 3
 
     def test_corrupted_pdf_returns_422(self, client):
-        with patch("app.api.extract_text", side_effect=ValueError("Cannot read PDF: bad format")):
+        with patch(
+            "app.api.extract_text",
+            side_effect=ValueError("Cannot read PDF: bad format"),
+        ):
             res = client.post(
                 "/upload",
                 files={"file": ("bad.pdf", b"not a pdf", "application/pdf")},

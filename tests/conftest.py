@@ -2,9 +2,11 @@
 Module-level mocks must run before any app.* import.
 pytest loads conftest.py before collecting test files, so this is safe.
 """
+
 import os
 import sys
 from unittest.mock import MagicMock
+
 import numpy as np
 
 # Required env vars — app.query raises RuntimeError at import if missing
