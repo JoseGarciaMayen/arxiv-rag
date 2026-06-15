@@ -139,6 +139,34 @@ def query(question: str, engine=None, history: list[dict] | None = None) -> str:
     return response.choices[0].message.content
 
 
+def stream_query(question: str, engine=None, history: list[dict] | None = None):
+    if engine is None:
+        engine = create_engine(DB_URL)
+    search_query = rewrite_query(question, history or [])
+    chunks = search_chunks(search_query, engine)
+
+    if not chunks:
+        yield "I couldn't find relevant information in the indexed papers for that question."
+        return
+
+    messages = (
+        [{"role": "system", "content": build_system_message(chunks)}]
+        + (history or [])
+        + [{"role": "user", "content": question}]
+    )
+
+    stream = groq_client.chat.completions.create(
+        model=GROQ_MODEL,
+        messages=messages,
+        temperature=0.2,
+        stream=True,
+    )
+    for chunk in stream:
+        content = chunk.choices[0].delta.content
+        if content:
+            yield content
+
+
 if __name__ == "__main__":
     import sys
 

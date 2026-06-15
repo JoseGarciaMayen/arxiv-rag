@@ -1,13 +1,15 @@
+import json
 import os
 import tempfile
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from sqlalchemy import create_engine, text
 
 from app.ingest import chunk_text, clean_text, embed_and_store, extract_text, setup_db
-from app.query import query
+from app.query import query, stream_query
 
 load_dotenv()
 
@@ -62,6 +64,19 @@ async def query_endpoint(request: QueryRequest):
 
     answer = query(request.question, engine, request.history)
     return QueryResponse(answer=answer)
+
+
+@app.post("/query/stream")
+async def query_stream(request: QueryRequest):
+    if not request.question.strip():
+        raise HTTPException(status_code=400, detail="Question can't be empty")
+
+    def generate():
+        for token in stream_query(request.question, engine, request.history):
+            yield f"data: {json.dumps({'content': token})}\n\n"
+        yield "data: [DONE]\n\n"
+
+    return StreamingResponse(generate(), media_type="text/event-stream")
 
 
 @app.get("/documents")
