@@ -1,12 +1,13 @@
 import os
 from dotenv import load_dotenv
-from sentence_transformers import SentenceTransformer
+from sentence_transformers import SentenceTransformer, CrossEncoder
 from sqlalchemy import create_engine, text
 from groq import Groq
 
 load_dotenv()
 
 EMBED_MODEL = SentenceTransformer("all-MiniLM-L6-v2")
+RERANK_MODEL = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-12-v2")
 DB_URL = os.getenv("DATABASE_URL")
 groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
@@ -43,10 +44,18 @@ def reciprocal_rank_fusion(rankings: list[list[dict]], k: int = 60) -> list[dict
     sorted_ids = sorted(scores, key=lambda x: scores[x], reverse=True)
     return [docs[i] for i in sorted_ids]
 
+def rerank(question: str, chunks: list[dict]) -> list[dict]:
+    if not chunks:
+        return chunks
+    pairs = [(question, chunk["content"]) for chunk in chunks]
+    scores = RERANK_MODEL.predict(pairs)
+    return [chunk for chunk, _ in sorted(zip(chunks, scores), key=lambda x: x[1], reverse=True)]
+
 def search_chunks(question: str, engine, top_k: int = 5) -> list[dict]:
     dense = search_chunks_dense(question, engine, top_k=20)
     bm25 = search_chunks_bm25(question, engine, top_k=20)
-    return reciprocal_rank_fusion([dense, bm25])[:top_k]
+    candidates = reciprocal_rank_fusion([dense, bm25])[:20]
+    return rerank(question, candidates)[:top_k]
 
 def build_system_message(chunks: list[dict]) -> str:
     context = "\n\n---\n\n".join(
@@ -87,6 +96,7 @@ def query(question: str, engine=None, history: list[dict] | None = None) -> str:
         engine = create_engine(DB_URL)
     search_query = rewrite_query(question, history or [])
     chunks = search_chunks(search_query, engine)
+    print("CHUNKS: ", chunks)
 
     if not chunks:
         return "I couldn't find relevant information in the indexed papers for that question."
