@@ -1,4 +1,6 @@
 import os
+import uuid, pathlib
+
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from pydantic import BaseModel
 from dotenv import load_dotenv
@@ -29,7 +31,8 @@ async def upload_pdf(file: UploadFile = File(...)):
 
     content = await file.read()
 
-    tmp_path = f"/tmp/{file.filename}"
+    safe_name = f"{uuid.uuid4()}.pdf"
+    tmp_path = f"/tmp/{safe_name}"
     with open(tmp_path, "wb") as f:
         f.write(content)
 
