@@ -42,6 +42,8 @@ async def upload_pdf(file: UploadFile = File(...)):
         raw_text = extract_text(tmp_path)
         chunks = chunk_text(clean_text(raw_text))
         embed_and_store(chunks, source=file.filename, engine=engine)
+    except ValueError as e:
+        raise HTTPException(status_code=422, detail=str(e))
     finally:
         os.remove(tmp_path)
 
