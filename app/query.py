@@ -10,6 +10,7 @@ _groq_api_key = os.getenv("GROQ_API_KEY")
 if not _groq_api_key:
     raise RuntimeError("GROQ_API_KEY environment variable is not set")
 groq_client = Groq(api_key=_groq_api_key)
+GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
 
 def search_chunks_dense(question: str, engine, top_k: int = 20) -> list[dict]:
     vector = str(EMBED_MODEL.encode(question).tolist())
@@ -85,7 +86,7 @@ def rewrite_query(question: str, history: list[dict]) -> str:
         {"role": "user", "content": question},
     ]
     response = groq_client.chat.completions.create(
-        model="llama-3.1-8b-instant",
+        model=GROQ_MODEL,
         messages=messages,
         temperature=0,
     )
@@ -109,7 +110,7 @@ def query(question: str, engine=None, history: list[dict] | None = None) -> str:
     )
 
     response = groq_client.chat.completions.create(
-        model="llama-3.1-8b-instant",
+        model=GROQ_MODEL,
         messages=messages,
         temperature=0.2,
     )
