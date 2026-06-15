@@ -67,7 +67,7 @@ def extract_text(pdf_path: str) -> str:
 
     cleaned: list[str] = []
     for page_text in pages:
-        lines = [l for l in page_text.splitlines() if l.strip() not in running_lines]
+        lines = [line for line in page_text.splitlines() if line.strip() not in running_lines]
         cleaned.append("\n".join(lines))
 
     return "\n".join(cleaned)
