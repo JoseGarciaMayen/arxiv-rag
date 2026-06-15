@@ -86,6 +86,8 @@ def rewrite_query(question: str, history: list[dict]) -> str:
         messages=messages,
         temperature=0,
     )
+    if not response.choices:
+        raise ValueError("Groq returned no choices")
     return response.choices[0].message.content.strip()
 
 def query(question: str, engine=None, history: list[dict] | None = None) -> str:
@@ -108,7 +110,8 @@ def query(question: str, engine=None, history: list[dict] | None = None) -> str:
         messages=messages,
         temperature=0.2,
     )
-
+    if not response.choices:
+        raise ValueError("Groq returned no choices")
     return response.choices[0].message.content
 
 if __name__ == "__main__":
