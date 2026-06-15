@@ -10,15 +10,43 @@ EMBED_MODEL = SentenceTransformer("all-MiniLM-L6-v2")
 DB_URL = os.getenv("DATABASE_URL")
 groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-def search_chunks(question: str, engine, top_k: int = 8) -> list[dict]:
+def search_chunks_dense(question: str, engine, top_k: int = 20) -> list[dict]:
     vector = str(EMBED_MODEL.encode(question).tolist())
     with engine.connect() as conn:
         result = conn.execute(text("""
-            SELECT content, source FROM chunks
+            SELECT id, content, source FROM chunks
             ORDER BY embedding <=> :embedding
             LIMIT :top_k
         """), {"embedding": vector, "top_k": top_k})
-        return [{"content": row[0], "source": row[1]} for row in result]
+        return [{"id": row[0], "content": row[1], "source": row[2]} for row in result]
+
+def search_chunks_bm25(question: str, engine, top_k: int = 20) -> list[dict]:
+    with engine.connect() as conn:
+        result = conn.execute(text("""
+            SELECT id, content, source,
+                   ts_rank(content_tsv, websearch_to_tsquery('english', :query)) AS rank
+            FROM chunks
+            WHERE content_tsv @@ websearch_to_tsquery('english', :query)
+            ORDER BY rank DESC
+            LIMIT :top_k
+        """), {"query": question, "top_k": top_k})
+        return [{"id": row[0], "content": row[1], "source": row[2]} for row in result]
+
+def reciprocal_rank_fusion(rankings: list[list[dict]], k: int = 60) -> list[dict]:
+    scores: dict[int, float] = {}
+    docs: dict[int, dict] = {}
+    for ranking in rankings:
+        for rank, doc in enumerate(ranking):
+            doc_id = doc["id"]
+            scores[doc_id] = scores.get(doc_id, 0.0) + 1.0 / (k + rank + 1)
+            docs[doc_id] = doc
+    sorted_ids = sorted(scores, key=lambda x: scores[x], reverse=True)
+    return [docs[i] for i in sorted_ids]
+
+def search_chunks(question: str, engine, top_k: int = 5) -> list[dict]:
+    dense = search_chunks_dense(question, engine, top_k=20)
+    bm25 = search_chunks_bm25(question, engine, top_k=20)
+    return reciprocal_rank_fusion([dense, bm25])[:top_k]
 
 def build_system_message(chunks: list[dict]) -> str:
     context = "\n\n---\n\n".join(

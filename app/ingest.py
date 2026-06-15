@@ -38,14 +38,17 @@ _NOISY_FIRST_LINE_RE = re.compile(
 def setup_db(engine):
     with engine.connect() as conn:
         conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector"))
-
         conn.execute(text("""
             CREATE TABLE IF NOT EXISTS chunks (
                 id SERIAL PRIMARY KEY,
                 source TEXT,
                 content TEXT,
-                embedding vector(384)
+                embedding vector(384),
+                content_tsv tsvector GENERATED ALWAYS AS (to_tsvector('english', content)) STORED
             )
+        """))
+        conn.execute(text("""
+            CREATE INDEX IF NOT EXISTS chunks_tsv_idx ON chunks USING GIN (content_tsv)
         """))
         conn.commit()
 
