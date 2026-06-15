@@ -79,6 +79,11 @@ async def query_stream(request: QueryRequest):
     return StreamingResponse(generate(), media_type="text/event-stream")
 
 
+@app.get("/health")
+async def health():
+    return {"status": "ok", "model": "all-MiniLM-L6-v2"}
+
+
 @app.get("/documents")
 async def list_documents():
     with engine.connect() as conn:
