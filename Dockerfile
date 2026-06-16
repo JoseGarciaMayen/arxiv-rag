@@ -9,4 +9,6 @@ RUN uv sync --no-dev
 
 COPY app/ app/
 
-CMD ["/bin/sh", "-c", "uv run uvicorn app.api:app --host 0.0.0.0 --port ${PORT:-10000}"]
+RUN uv run python -c "from sentence_transformers import SentenceTransformer, CrossEncoder; SentenceTransformer('all-MiniLM-L6-v2'); CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')"
+
+CMD ["/bin/sh", "-c", ".venv/bin/uvicorn app.api:app --host 0.0.0.0 --port ${PORT:-10000}"]
