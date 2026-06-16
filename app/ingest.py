@@ -139,6 +139,11 @@ def embed_and_store(chunks: list[str], source: str, engine):
     valid_chunks = [c for c in chunks if is_valid_chunk(c)]
     embeddings = EMBED_MODEL.encode(valid_chunks, show_progress_bar=True)
     with engine.connect() as conn:
+        # Re-ingesting the same source replaces its chunks instead of duplicating them
+        conn.execute(
+            text("DELETE FROM chunks WHERE source = :source"),
+            {"source": source.replace("\x00", "")},
+        )
         for chunk, embedding in zip(valid_chunks, embeddings, strict=False):
             conn.execute(
                 text(
