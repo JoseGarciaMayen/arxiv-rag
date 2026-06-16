@@ -14,10 +14,14 @@ pinned: false
 
 **Ask questions across multiple academic papers. Get grounded answers with source citations.**
 
+[![Live demo](https://img.shields.io/badge/%F0%9F%A4%97%20Live%20demo-Hugging%20Face-blue?style=flat-square)](https://huggingface.co/spaces/josegm61/arxiv-rag)
+
 ![Stack](https://img.shields.io/badge/Python-3.14-blue?style=flat-square) ![Stack](https://img.shields.io/badge/FastAPI-0.100+-green?style=flat-square) ![Stack](https://img.shields.io/badge/pgvector-PostgreSQL-336791?style=flat-square) ![Stack](https://img.shields.io/badge/Groq-LLaMA_3.1-orange?style=flat-square) ![Stack](https://img.shields.io/badge/React-TypeScript-61dafb?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
 
-![demo](docs/demo.gif)
+<a href="https://huggingface.co/spaces/josegm61/arxiv-rag">
+  <img src="docs/demo.gif" alt="demo" />
+</a>
 
 </div>
 
@@ -132,6 +136,22 @@ cd arxiv-rag
 docker compose down   # stop
 docker compose up     # start again (no rebuild)
 ```
+
+---
+
+## Deployment
+
+The [live demo](https://huggingface.co/spaces/josegm61/arxiv-rag) runs on a **Hugging Face Space** (Docker SDK), with the database hosted on **Supabase** (managed PostgreSQL + pgvector).
+
+A single container serves everything: the root `Dockerfile` builds the React frontend, serves it with nginx, and proxies `/api/` to an internal uvicorn process (see `deploy/hf/`). The image listens on port `7860` (set in the `README.md` front matter that the Space reads). The `docker-compose` setup keeps using `Dockerfile.api` for local, multi-container development.
+
+To deploy your own:
+
+1. Create a **Docker Space** on Hugging Face and add `DATABASE_URL` and `GROQ_API_KEY` as **Secrets**.
+2. For the database, create a Supabase project and use its **Session pooler** connection string (works over IPv4, which the direct connection does not). The schema and indexes are created automatically on startup.
+3. Push this repo to the Space's git remote. The build runs and the demo is live.
+
+On the free tiers the Space sleeps after inactivity and Supabase pauses after a week, so a scheduled GitHub Action (`.github/workflows/keep-alive.yml`) pings the demo every few hours to keep both awake.
 
 ---
 

@@ -1,0 +1,21 @@
+name: Keep-alive
+
+# Pings the live demo so the HF Space doesn't sleep and the Supabase
+# database doesn't pause for inactivity. /api/documents runs a DB query,
+# so it keeps both awake.
+
+on:
+  schedule:
+    - cron: "0 */6 * * *" # every 6 hours
+  workflow_dispatch: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping demo
+        run: |
+          curl -fsS --max-time 60 --retry 3 --retry-delay 15 \
+            https://josegm61-arxiv-rag.hf.space/api/documents > /dev/null \
+            && echo "Demo is awake" \
+            || echo "Ping failed (Space may be cold-starting)"
