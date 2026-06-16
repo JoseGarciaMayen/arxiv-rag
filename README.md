@@ -92,7 +92,7 @@ Evaluated with [RAGAS](https://github.com/explodinggradients/ragas):
 The score varies slightly between runs depending on the questions used. The improvement over the baseline reflects the gains from combining keyword and semantic search, and from the cross-encoder surfacing genuinely relevant passages instead of just semantically similar ones.
 
 ```bash
-# Run evaluation (~3 min: sequential to respect Groq free tier TPM limits)
+# Run evaluation (~3 min: sequential to respect Groq free tier limits)
 uv run python -m app.evaluate
 
 # Custom questions
@@ -156,7 +156,6 @@ docker compose up     # start again (no rebuild)
 
 - Metadata chunks (acknowledgements, copyright notices) occasionally pass the quality filters and appear in retrieval results
 - No authentication on the API: anyone who can reach the server can upload documents or query
-- The LLM occasionally uses its own training knowledge even when the prompt instructs it to answer only from the provided context
 
 ---
 
@@ -177,9 +176,9 @@ The retrieval pipeline is built on a handful of foundational papers. Each row li
 
 These are the same PDFs downloaded by the [`wget` commands in **What it does**](#what-it-does), so once you've run those, you already have them locally both as test documents for the app and as reading material.
 
-> RRF (Cormack 2009) is behind the ACM paywall, so it has no free PDF link. The
-> DOI above points to it. BM25 is best read in *Introduction to Information
-> Retrieval* (Manning et al., free online), chapter on ranked retrieval.
+RRF (Cormack 2009) is behind the ACM paywall, so it has no free PDF link. The
+DOI above points to it. BM25 is best read in *Introduction to Information
+Retrieval* (Manning et al., free online), chapter on ranked retrieval.
 
 ---
 
@@ -204,12 +203,7 @@ arxiv-rag/
 │   ├── nginx.conf
 │   ├── Dockerfile
 │   └── package.json
-├── docs/               # Sample papers (gitignored) + demo
-│   ├── attention_is_all_you_need.pdf
-│   ├── bert.pdf
-│   ├── yolo.pdf
-│   ├── rag.pdf
-│   ├── adam_optimizer.pdf
+├── docs/
 │   └── demo.gif
 ├── tests/
 │   ├── conftest.py
