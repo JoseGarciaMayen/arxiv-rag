@@ -5,7 +5,6 @@ export function useChat() {
     const [messages, setMessages] = useState<Message[]>([])
     const [isLoading, setIsLoading] = useState(false)
     const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([])
-    const [documentsError, setDocumentsError] = useState<string | null>(null)
     const [deleteError, setDeleteError] = useState<string | null>(null)
 
     const fetchDocuments = () => {
@@ -198,7 +197,6 @@ export function useChat() {
         messages,
         isLoading,
         uploadedFiles,
-        documentsError,
         deleteError,
         clearDeleteError,
         sendMessage,
