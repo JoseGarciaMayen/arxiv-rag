@@ -55,6 +55,12 @@ def setup_db(engine):
             CREATE INDEX IF NOT EXISTS chunks_tsv_idx ON chunks USING GIN (content_tsv)
         """)
         )
+        conn.execute(
+            text("""
+            CREATE INDEX IF NOT EXISTS chunks_emb_idx ON chunks
+            USING hnsw (embedding vector_cosine_ops)
+        """)
+        )
         conn.commit()
 
 
@@ -133,30 +139,36 @@ def is_valid_chunk(chunk: str) -> bool:
     return True
 
 
-def embed_and_store(chunks: list[str], source: str, engine):
+def embed_and_store(chunks: list[str], source: str, engine) -> int:
     if engine is None:
         engine = create_engine(DB_URL)
+    clean_source = source.replace("\x00", "")
     valid_chunks = [c for c in chunks if is_valid_chunk(c)]
     embeddings = EMBED_MODEL.encode(valid_chunks, show_progress_bar=True)
+    rows = [
+        {
+            "source": clean_source,
+            "content": chunk.replace("\x00", ""),
+            "embedding": str(embedding.tolist()),
+        }
+        for chunk, embedding in zip(valid_chunks, embeddings, strict=False)
+    ]
     with engine.connect() as conn:
         # Re-ingesting the same source replaces its chunks instead of duplicating them
         conn.execute(
             text("DELETE FROM chunks WHERE source = :source"),
-            {"source": source.replace("\x00", "")},
+            {"source": clean_source},
         )
-        for chunk, embedding in zip(valid_chunks, embeddings, strict=False):
+        if rows:
             conn.execute(
                 text(
                     "INSERT INTO chunks (source, content, embedding) "
                     "VALUES (:source, :content, :embedding)"
                 ),
-                {
-                    "source": source.replace("\x00", ""),
-                    "content": chunk.replace("\x00", ""),
-                    "embedding": str(embedding.tolist()),
-                },
+                rows,
             )
         conn.commit()
+    return len(rows)
 
 
 def ingest_text(pdf_path: str):
