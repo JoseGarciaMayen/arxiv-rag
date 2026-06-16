@@ -1,18 +1,19 @@
+import math
 import os
 import time
-import math
-from dotenv import load_dotenv
-from sqlalchemy import create_engine
+
 from datasets import Dataset
-from ragas import evaluate
-from ragas.metrics import answer_relevancy
-from ragas.llms import LangchainLLMWrapper
-from ragas.embeddings import LangchainEmbeddingsWrapper
+from dotenv import load_dotenv
 from langchain_groq import ChatGroq
 from langchain_huggingface import HuggingFaceEmbeddings
+from ragas import evaluate
+from ragas.embeddings import LangchainEmbeddingsWrapper
+from ragas.llms import LangchainLLMWrapper
+from ragas.metrics import answer_relevancy
 from ragas.run_config import RunConfig
+from sqlalchemy import create_engine
 
-from app.query import search_chunks, query
+from app.query import query, search_chunks
 
 load_dotenv()
 
@@ -68,7 +69,7 @@ def run_evaluation(questions: list[str]):
     # Filter out NaN values before calculating average
     valid_scores = [s for s in scores if not (isinstance(s, float) and math.isnan(s))]
     avg = sum(valid_scores) / len(valid_scores) if valid_scores else 0.0
-    print(f"\n=== RAGAS Results ===")
+    print("\n=== RAGAS Results ===")
     print(f"answer_relevancy: {avg:.4f}  (avg over {len(questions)} questions)")
     return avg
 
