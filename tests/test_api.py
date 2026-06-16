@@ -18,10 +18,13 @@ def client(test_app):
             yield c
 
 
-def _mock_engine_connect(rows=None):
+def _mock_engine_connect(rows=None, rowcount=1):
     """Return (context_manager, mock_conn) for patching engine.connect()."""
     mock_conn = MagicMock()
-    mock_conn.execute.return_value = rows or []
+    result = MagicMock()
+    result.__iter__.return_value = iter(rows or [])
+    result.rowcount = rowcount
+    mock_conn.execute.return_value = result
     cm = MagicMock()
     cm.__enter__ = MagicMock(return_value=mock_conn)
     cm.__exit__ = MagicMock(return_value=False)
@@ -39,7 +42,7 @@ class TestUploadEndpoint:
             patch("app.api.extract_text", return_value="raw text"),
             patch("app.api.clean_text", return_value="clean text"),
             patch("app.api.chunk_text", return_value=["chunk1", "chunk2", "chunk3"]),
-            patch("app.api.embed_and_store"),
+            patch("app.api.embed_and_store", return_value=3),
         ):
             res = client.post(
                 "/upload",
@@ -110,6 +113,13 @@ class TestDeleteEndpoint:
         assert res.status_code == 200
         assert "paper.pdf" in res.json()["message"]
         mock_conn.commit.assert_called_once()
+
+    def test_delete_missing_document_returns_404(self, client):
+        cm, _ = _mock_engine_connect(rowcount=0)
+        with patch("app.api.engine") as mock_engine:
+            mock_engine.connect.return_value = cm
+            res = client.delete("/document/missing.pdf")
+        assert res.status_code == 404
 
     def test_delete_calls_correct_sql(self, client):
         cm, mock_conn = _mock_engine_connect()
