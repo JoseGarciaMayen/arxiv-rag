@@ -8,18 +8,15 @@ export function useChat() {
     const [documentsError, setDocumentsError] = useState<string | null>(null)
     const [deleteError, setDeleteError] = useState<string | null>(null)
 
-    useEffect(() => {
-        fetch('/api/documents')
-            .then(r => {
-                if (!r.ok) throw new Error(`Failed to load documents (${r.status})`)
-                return r.json()
-            })
+    const fetchDocuments = () => {
+        fetch('/api/documents', { cache: 'no-store' })
+            .then(r => r.json())
             .then(data => setUploadedFiles(data.documents ?? []))
-            .catch((err: unknown) =>
-                setDocumentsError(
-                    err instanceof Error ? err.message : 'Failed to load documents'
-                )
-            )
+            .catch(() => { })
+    }
+
+    useEffect(() => {
+        fetchDocuments()
     }, [])
 
     const sendMessage = async (question: string, baseMessages?: Message[]) => {
@@ -137,20 +134,11 @@ export function useChat() {
         formData.append('file', file)
         const res = await fetch('/api/upload', {
             method: 'POST',
-            body: formData,
+            body: formData
         })
         if (!res.ok) throw new Error('Upload failed')
         const data = await res.json()
-        const newFile: UploadedFile = {
-            name: file.name,
-            chunks: data.chunks,
-            uploadedAt: new Date().toISOString(),
-        }
-        setUploadedFiles(prev => {
-            const exists = prev.find(f => f.name === file.name)
-            if (exists) return prev.map(f => (f.name === file.name ? newFile : f))
-            return [...prev, newFile]
-        })
+        fetchDocuments()
         return data
     }
 
