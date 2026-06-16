@@ -56,13 +56,13 @@ async def upload_pdf(request: Request, file: UploadFile = File(...)):
     try:
         raw_text = extract_text(tmp_path)
         chunks = chunk_text(clean_text(raw_text))
-        embed_and_store(chunks, source=file.filename, engine=engine)
+        stored = embed_and_store(chunks, source=file.filename, engine=engine)
     except ValueError as e:
         raise HTTPException(status_code=422, detail=str(e)) from e
     finally:
         os.remove(tmp_path)
 
-    return {"message": "Ingest completed", "chunks": len(chunks)}
+    return {"message": "Ingest completed", "chunks": stored}
 
 
 @app.post("/query", response_model=QueryResponse)
@@ -107,6 +107,10 @@ async def list_documents():
 @app.delete("/document/{filename}")
 async def delete_document(filename: str):
     with engine.connect() as conn:
-        conn.execute(text("DELETE FROM chunks WHERE source = :source"), {"source": filename})
+        result = conn.execute(
+            text("DELETE FROM chunks WHERE source = :source"), {"source": filename}
+        )
         conn.commit()
+    if result.rowcount == 0:
+        raise HTTPException(status_code=404, detail=f"{filename} not found")
     return {"message": f"{filename} deleted"}
