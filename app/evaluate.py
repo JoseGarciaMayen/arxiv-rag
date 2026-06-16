@@ -23,11 +23,15 @@ SLEEP_BETWEEN_QUESTIONS = 65
 def evaluate_question(question: str, engine, llm, embeddings) -> float:
     chunks = search_chunks(question, engine)
     answer = query(question, engine)
-    dataset = Dataset.from_list([{
-        "question": question,
-        "answer": answer,
-        "contexts": [c["content"] for c in chunks],
-    }])
+    dataset = Dataset.from_list(
+        [
+            {
+                "question": question,
+                "answer": answer,
+                "contexts": [c["content"] for c in chunks],
+            }
+        ]
+    )
     result = evaluate(
         dataset,
         metrics=[answer_relevancy],
@@ -36,21 +40,21 @@ def evaluate_question(question: str, engine, llm, embeddings) -> float:
         run_config=RunConfig(timeout=120, max_retries=2, max_wait=60),
     )
     score = result["answer_relevancy"]
-    return float(score) if not hasattr(score, '__iter__') else float(score[0])
+    return float(score) if not hasattr(score, "__iter__") else float(score[0])
 
 
 def run_evaluation(questions: list[str]):
     engine = create_engine(os.getenv("DATABASE_URL"))
 
-    llm = LangchainLLMWrapper(ChatGroq(
-    model="llama-3.1-8b-instant",
-    api_key=os.getenv("GROQ_API_KEY"),
-    request_timeout=120,
-    max_tokens=2048,
-    ))
-    embeddings = LangchainEmbeddingsWrapper(
-        HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+    llm = LangchainLLMWrapper(
+        ChatGroq(
+            model="llama-3.1-8b-instant",
+            api_key=os.getenv("GROQ_API_KEY"),
+            request_timeout=120,
+            max_tokens=2048,
+        )
     )
+    embeddings = LangchainEmbeddingsWrapper(HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2"))
 
     scores = []
     for i, question in enumerate(questions):
@@ -58,7 +62,7 @@ def run_evaluation(questions: list[str]):
             print(f"  Waiting {SLEEP_BETWEEN_QUESTIONS}s for TPM window to reset...")
             time.sleep(SLEEP_BETWEEN_QUESTIONS)
 
-        print(f"[{i+1}/{len(questions)}] {question}")
+        print(f"[{i + 1}/{len(questions)}] {question}")
         score = evaluate_question(question, engine, llm, embeddings)
         if isinstance(score, list):
             scores.extend(score)
@@ -76,9 +80,10 @@ def run_evaluation(questions: list[str]):
 
 if __name__ == "__main__":
     import sys
+
     questions = sys.argv[1:] or [
         "What is BERT?",
         "How does the transformer model work?",
-        "What are the main limitations of YOLO?"
+        "What are the main limitations of YOLO?",
     ]
     run_evaluation(questions)
