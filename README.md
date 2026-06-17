@@ -14,7 +14,7 @@ pinned: false
 
 **Ask questions across multiple academic papers. Get grounded answers with source citations.**
 
-[![Live demo](https://img.shields.io/badge/%F0%9F%A4%97%20Live%20demo-Hugging%20Face-blue?style=flat-square)](https://huggingface.co/spaces/josegm61/arxiv-rag)
+[![Live demo](https://img.shields.io/badge/%F0%9F%A4%97%20Live%20demo-Hugging%20Face-blue?style=flat-square)](https://josegm61-arxiv-rag.hf.space/)
 
 ![Stack](https://img.shields.io/badge/Python-3.14-blue?style=flat-square) ![Stack](https://img.shields.io/badge/FastAPI-0.100+-green?style=flat-square) ![Stack](https://img.shields.io/badge/pgvector-PostgreSQL-336791?style=flat-square) ![Stack](https://img.shields.io/badge/Groq-LLaMA_3.1-orange?style=flat-square) ![Stack](https://img.shields.io/badge/React-TypeScript-61dafb?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
