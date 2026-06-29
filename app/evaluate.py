@@ -17,6 +17,7 @@ from app.query import query, search_chunks
 
 load_dotenv()
 
+GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
 SLEEP_BETWEEN_QUESTIONS = 65
 
 
@@ -48,7 +49,7 @@ def run_evaluation(questions: list[str]):
 
     llm = LangchainLLMWrapper(
         ChatGroq(
-            model="llama-3.1-8b-instant",
+            model=GROQ_MODEL,
             api_key=os.getenv("GROQ_API_KEY"),
             request_timeout=120,
             max_tokens=2048,
