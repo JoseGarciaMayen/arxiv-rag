@@ -12,7 +12,7 @@ _groq_api_key = os.getenv("GROQ_API_KEY")
 if not _groq_api_key:
     raise RuntimeError("GROQ_API_KEY environment variable is not set")
 groq_client = Groq(api_key=_groq_api_key)
-GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+GROQ_MODEL = os.getenv("GROQ_MODEL", "qwen/qwen3.8-27b")
 
 
 def search_chunks_dense(question: str, engine, top_k: int = 20) -> list[dict]:
