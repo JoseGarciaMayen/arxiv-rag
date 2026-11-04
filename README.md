@@ -16,7 +16,7 @@ pinned: false
 
 [![Live demo](https://img.shields.io/badge/%F0%9F%A4%97%20Live%20demo-Hugging%20Face-blue?style=flat-square)](https://josegm61-arxiv-rag.hf.space/)
 
-![Stack](https://img.shields.io/badge/Python-3.14-blue?style=flat-square) ![Stack](https://img.shields.io/badge/FastAPI-0.100+-green?style=flat-square) ![Stack](https://img.shields.io/badge/pgvector-PostgreSQL-336791?style=flat-square) ![Stack](https://img.shields.io/badge/Groq-LLaMA_3.1-orange?style=flat-square) ![Stack](https://img.shields.io/badge/React-TypeScript-61dafb?style=flat-square)
+![Stack](https://img.shields.io/badge/Python-3.14-blue?style=flat-square) ![Stack](https://img.shields.io/badge/FastAPI-0.100+-green?style=flat-square) ![Stack](https://img.shields.io/badge/pgvector-PostgreSQL-336791?style=flat-square) ![Stack](https://img.shields.io/badge/Groq%20%7C%20DeepSeek-configurable-orange?style=flat-square) ![Stack](https://img.shields.io/badge/React-TypeScript-61dafb?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
 
 <a href="https://huggingface.co/spaces/josegm61/arxiv-rag">
@@ -57,7 +57,7 @@ These are the same papers the retrieval pipeline itself is built on. See [Furthe
 ```
 User Question 
       ↓
-Query Rewriting (Groq)
+Query Rewriting (configured LLM provider)
       ↓
       ├─► Plain text ─────────► BM25 / PostgreSQL FTS ──┐
       │                                                  ├─► RRF Fusion (top-20)
@@ -65,7 +65,7 @@ Query Rewriting (Groq)
                                                                     ↓
                                                         Cross-Encoder Reranking (top-5)
                                                                     ↓
-                                                                Groq LLM → Answer
+                                                   Configured LLM provider → Answer
 ```
 
 Most RAG systems stop at the embedding search step, convert the question to a vector, find similar chunks, send them to the LLM. This works reasonably well but has a key weakness: embedding models compress meaning into a fixed-size vector, which loses information. A question about "model training instability" might not match a chunk that discusses "gradient explosion" even though they're the same concept.
@@ -125,7 +125,9 @@ cd arxiv-rag
 ./setup.sh
 ```
 
-`setup.sh` will ask for your Groq API key (free at [console.groq.com](https://console.groq.com)), build the images, and start everything.
+`setup.sh` asks which chat provider to use (`groq` or `deepseek`) and for the corresponding API credentials, then builds the images and starts everything. Groq remains the default. For DeepSeek, enter the exact model ID enabled for your API account; requests use the OpenAI-compatible API at `https://api.deepseek.com`.
+
+You can also configure `.env` directly with `LLM_PROVIDER`, `GROQ_API_KEY` / `GROQ_MODEL`, or `DEEPSEEK_API_KEY` / `DEEPSEEK_MODEL`. `LLM_PROVIDER` selects query rewriting and answer generation. The current RAGAS evaluation judge still uses Groq.
 
 | URL | What |
 |---|---|
@@ -147,7 +149,7 @@ A single container serves everything: the root `Dockerfile` builds the React fro
 
 To deploy your own:
 
-1. Create a **Docker Space** on Hugging Face and add `DATABASE_URL` and `GROQ_API_KEY` as **Secrets**.
+1. Create a **Docker Space** on Hugging Face and add `DATABASE_URL`, `LLM_PROVIDER`, and the selected provider's API key/model variables as **Secrets/Variables**.
 2. For the database, create a Supabase project and use its **Session pooler** connection string (works over IPv4, which the direct connection does not). The schema and indexes are created automatically on startup.
 3. Push this repo to the Space's git remote. The build runs and the demo is live.
 

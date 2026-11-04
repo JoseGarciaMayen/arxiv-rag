@@ -12,6 +12,7 @@ import numpy as np
 # Required env vars — app.query raises RuntimeError at import if missing
 os.environ.setdefault("DATABASE_URL", "postgresql://test:test@localhost/test")
 os.environ.setdefault("GROQ_API_KEY", "test-key")
+os.environ.setdefault("LLM_PROVIDER", "groq")
 
 # Mock sentence_transformers before app.models is imported
 MOCK_EMBED_MODEL = MagicMock()

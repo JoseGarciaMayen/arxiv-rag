@@ -1,18 +1,16 @@
 import os
 
 from dotenv import load_dotenv
-from groq import Groq
 from sqlalchemy import create_engine, text
 
+from app.llm_client import create_llm_client, settings_from_env
 from app.models import EMBED_MODEL, RERANK_MODEL
 
 load_dotenv()
 DB_URL = os.getenv("DATABASE_URL")
-_groq_api_key = os.getenv("GROQ_API_KEY")
-if not _groq_api_key:
-    raise RuntimeError("GROQ_API_KEY environment variable is not set")
-groq_client = Groq(api_key=_groq_api_key)
-GROQ_MODEL = os.getenv("GROQ_MODEL", "qwen/qwen3.8-27b")
+LLM_SETTINGS = settings_from_env()
+llm_client = create_llm_client(LLM_SETTINGS)
+LLM_MODEL = LLM_SETTINGS.model
 
 
 def search_chunks_dense(question: str, engine, top_k: int = 20) -> list[dict]:
@@ -104,13 +102,13 @@ def rewrite_query(question: str, history: list[dict]) -> str:
         *history,
         {"role": "user", "content": question},
     ]
-    response = groq_client.chat.completions.create(
-        model=GROQ_MODEL,
+    response = llm_client.chat.completions.create(
+        model=LLM_MODEL,
         messages=messages,
         temperature=0,
     )
     if not response.choices:
-        raise ValueError("Groq returned no choices")
+        raise ValueError(f"{LLM_SETTINGS.provider} returned no choices")
     return response.choices[0].message.content.strip()
 
 
@@ -129,13 +127,13 @@ def query(question: str, engine=None, history: list[dict] | None = None) -> str:
         + [{"role": "user", "content": question}]
     )
 
-    response = groq_client.chat.completions.create(
-        model=GROQ_MODEL,
+    response = llm_client.chat.completions.create(
+        model=LLM_MODEL,
         messages=messages,
         temperature=0.2,
     )
     if not response.choices:
-        raise ValueError("Groq returned no choices")
+        raise ValueError(f"{LLM_SETTINGS.provider} returned no choices")
     return response.choices[0].message.content
 
 
@@ -155,8 +153,8 @@ def stream_query(question: str, engine=None, history: list[dict] | None = None):
         + [{"role": "user", "content": question}]
     )
 
-    stream = groq_client.chat.completions.create(
-        model=GROQ_MODEL,
+    stream = llm_client.chat.completions.create(
+        model=LLM_MODEL,
         messages=messages,
         temperature=0.2,
         stream=True,

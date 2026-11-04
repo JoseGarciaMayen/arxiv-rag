@@ -76,32 +76,32 @@ class TestRewriteQuery:
         result = rewrite_query("what is attention?", [])
         assert result == "what is attention?"
 
-    def test_calls_groq_and_returns_rewritten_query(self):
+    def test_calls_configured_provider_and_returns_rewritten_query(self):
         import app.query as q
 
         mock_resp = MagicMock()
         mock_resp.choices = [MagicMock(message=MagicMock(content="  rewritten query  "))]
-        original_client = q.groq_client
-        q.groq_client = MagicMock()
-        q.groq_client.chat.completions.create.return_value = mock_resp
+        original_client = q.llm_client
+        q.llm_client = MagicMock()
+        q.llm_client.chat.completions.create.return_value = mock_resp
 
         history = [{"role": "user", "content": "tell me about transformers"}]
         result = rewrite_query("what about the attention mechanism?", history)
 
         assert result == "rewritten query"
-        q.groq_client.chat.completions.create.assert_called_once()
-        q.groq_client = original_client
+        q.llm_client.chat.completions.create.assert_called_once()
+        q.llm_client = original_client
 
-    def test_raises_if_groq_returns_no_choices(self):
+    def test_raises_if_provider_returns_no_choices(self):
         import app.query as q
 
         mock_resp = MagicMock()
         mock_resp.choices = []
-        original_client = q.groq_client
-        q.groq_client = MagicMock()
-        q.groq_client.chat.completions.create.return_value = mock_resp
+        original_client = q.llm_client
+        q.llm_client = MagicMock()
+        q.llm_client.chat.completions.create.return_value = mock_resp
 
-        with pytest.raises(ValueError, match="Groq returned no choices"):
+        with pytest.raises(ValueError, match="groq returned no choices"):
             rewrite_query("question", [{"role": "user", "content": "prior"}])
 
-        q.groq_client = original_client
+        q.llm_client = original_client
