@@ -38,8 +38,10 @@ uv run python scripts/run_retrieval_benchmark.py \
   --output benchmark/experiments/<unique-run-name>.json
 ```
 
-The runner compares PostgreSQL FTS (`ts_rank`), dense vector retrieval, and
-their RRF hybrid using the same questions. It reports macro Recall@5/10/20,
+The runner compares PostgreSQL FTS (`ts_rank`), local Okapi BM25, dense vector
+retrieval, dense+FTS RRF, and dense+BM25 RRF using the same questions. BM25 is
+implemented locally over the frozen JSONL corpus with `k1=1.5`, `b=0.75`; it is
+not PostgreSQL FTS. It reports macro Recall@5/10/20,
 MRR, and nDCG@5/10/20. Results include the corpus and question-file hashes.
 Both scripts refuse non-local database hosts and never load `.env`; no remote
 database or LLM API is needed. Dense vectors use the app's `all-MiniLM-L6-v2`
@@ -47,7 +49,8 @@ embedding model. Results are generated output and should only be committed
 intentionally after reviewing them. Save every run under a new filename in
 `benchmark/experiments/`; the runner refuses to overwrite a previous run. See
 `DECISIONS.md` for the protocol, interpretation limits, and current annotation
-status.
+status. `REFERENCES.md` summarizes RAG evaluation papers and proposes the next
+retrieval, answer-quality, robustness, and operational metrics.
 
 The first run on the pre-deduplication 30-question set is retained as a
 historical baseline in `benchmark/experiments/`.

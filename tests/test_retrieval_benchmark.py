@@ -1,6 +1,7 @@
 import pytest
 
 from app.retrieval_benchmark import (
+    BM25Index,
     evaluate_rankings,
     reciprocal_rank_fusion,
     stable_chunk_id,
@@ -15,6 +16,23 @@ def test_stable_chunk_id_uses_source_and_content_hash():
 
 def test_reciprocal_rank_fusion_promotes_chunks_in_both_rankings():
     assert reciprocal_rank_fusion([["a", "b"], ["b", "c"]])[0] == "b"
+
+
+def test_bm25_ranks_exact_term_evidence_ahead_of_unrelated_passage():
+    index = BM25Index(
+        [
+            {"chunk_id": "answer", "content": "HNSW uses hierarchical layers for search."},
+            {"chunk_id": "other", "content": "Adam optimization estimates gradient moments."},
+        ]
+    )
+
+    assert index.search("hierarchical layers HNSW", 2) == ["answer"]
+
+
+def test_bm25_empty_query_returns_no_results():
+    index = BM25Index([{"chunk_id": "one", "content": "A short searchable document."}])
+
+    assert index.search("!!!", 10) == []
 
 
 def test_evaluate_rankings_reports_per_question_and_macro_averages():

@@ -67,7 +67,7 @@ def main() -> None:
 
     engine = create_engine(database_url)
     try:
-        results = compare_retrievers(questions, engine, embedder, args.top_k)
+        results = compare_retrievers(questions, engine, embedder, corpus_rows, args.top_k)
     finally:
         engine.dispose()
 
@@ -87,6 +87,7 @@ def main() -> None:
         "rationale": args.rationale,
         "configuration": {
             "fts": "websearch_to_tsquery('english') ordered by ts_rank",
+            "bm25": "Okapi BM25 (k1=1.5, b=0.75; local implementation over corpus.jsonl)",
             "dense_distance": "cosine",
             "hybrid": "reciprocal rank fusion (k=60)",
             "reranker": None,

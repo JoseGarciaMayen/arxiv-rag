@@ -35,6 +35,10 @@ per-question ranked chunk IDs and scores.
   reranking into this comparison; test it as a separate stage later.
 - FTS means PostgreSQL `websearch_to_tsquery('english')` ordered by `ts_rank`;
   it is not BM25. Dense retrieval uses `all-MiniLM-L6-v2` and cosine distance.
+- BM25 uses the standard Okapi saturation/length-normalization formula
+  (`k1=1.5`, `b=0.75`) over the frozen corpus with a deterministic local
+  tokenizer. It is a transparent offline baseline, not a claim that PostgreSQL
+  `ts_rank` implements BM25.
 - Report Recall@5/10/20, MRR, and binary nDCG@5/10/20. Recall shows whether
   marked evidence is found, MRR emphasizes the first relevant result, and nDCG
   rewards placing relevant evidence near the top.
