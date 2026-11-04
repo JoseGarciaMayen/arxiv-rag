@@ -60,6 +60,7 @@ def evaluate_rankings(
         per_query.append(
             {
                 "query_id": question["query_id"],
+                "retrieved_chunk_ids": retrieved,
                 "reciprocal_rank": reciprocal_rank(retrieved, relevant),
                 "cutoffs": {
                     str(k): {

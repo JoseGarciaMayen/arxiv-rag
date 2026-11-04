@@ -63,6 +63,9 @@ def main() -> None:
                 ON benchmark_chunks USING hnsw (embedding vector_cosine_ops)
             """)
             )
+            # This table materializes only the frozen benchmark corpus.
+            # Refresh it fully so removed IDs cannot leak from an older version.
+            connection.execute(text("TRUNCATE benchmark_chunks"))
             connection.execute(
                 text("""
                     INSERT INTO benchmark_chunks (chunk_id, source, content, embedding)

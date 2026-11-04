@@ -21,11 +21,19 @@ def main() -> None:
     from app.ingest import chunk_text, clean_text, extract_text, is_valid_chunk
 
     sources = []
+    duplicates = []
     rows = []
+    source_by_hash = {}
     for pdf in sorted(PDF_DIR.glob("*.pdf")):
+        pdf_hash = sha256(pdf.read_bytes())
+        if pdf_hash in source_by_hash:
+            duplicates.append({"source": pdf.name, "duplicate_of": source_by_hash[pdf_hash]})
+            continue
+        source_by_hash[pdf_hash] = pdf.name
+
         raw = extract_text(str(pdf))
         chunks = [chunk for chunk in chunk_text(clean_text(raw)) if is_valid_chunk(chunk)]
-        sources.append({"source": pdf.name, "sha256": sha256(pdf.read_bytes())})
+        sources.append({"source": pdf.name, "sha256": pdf_hash})
         for ordinal, content in enumerate(chunks):
             content_hash = sha256(content.encode("utf-8"))
             rows.append(
@@ -46,14 +54,16 @@ def main() -> None:
     MANIFEST.write_text(
         json.dumps(
             {
-                "schema_version": 1,
+                "schema_version": 2,
                 "preprocessing": {
                     "extractor": "PyMuPDF",
                     "chunk_size": 1500,
                     "chunk_overlap": 150,
                     "validity_filter": "app.ingest.is_valid_chunk",
+                    "duplicate_policy": "exact PDF SHA-256; keep first filename lexically",
                 },
                 "sources": sources,
+                "excluded_duplicates": duplicates,
                 "chunk_count": len(rows),
                 "corpus_sha256": sha256(OUTPUT.read_bytes()),
             },
@@ -63,7 +73,10 @@ def main() -> None:
         + "\n",
         encoding="utf-8",
     )
-    print(f"Wrote {len(rows)} chunks from {len(sources)} PDFs to {OUTPUT.relative_to(ROOT)}")
+    print(
+        f"Wrote {len(rows)} chunks from {len(sources)} unique PDFs "
+        f"({len(duplicates)} exact duplicate excluded) to {OUTPUT.relative_to(ROOT)}"
+    )
 
 
 if __name__ == "__main__":

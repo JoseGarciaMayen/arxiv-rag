@@ -3,6 +3,7 @@
 import argparse
 import hashlib
 import json
+import subprocess
 import sys
 from datetime import UTC, datetime
 from pathlib import Path
@@ -26,6 +27,8 @@ def main() -> None:
         "--database-url", required=True, help="URL for the local benchmark PostgreSQL"
     )
     parser.add_argument("--top-k", type=int, default=20, help="Results per retriever (default: 20)")
+    parser.add_argument("--hypothesis", required=True, help="What this run is testing")
+    parser.add_argument("--rationale", required=True, help="Why this comparison is useful")
     parser.add_argument("--output", type=Path, help="Write JSON results here instead of stdout")
     args = parser.parse_args()
     if args.top_k < 20:
@@ -55,6 +58,8 @@ def main() -> None:
     )
     if unknown:
         parser.error(f"{len(unknown)} relevance labels do not exist in the frozen corpus")
+    if args.output and args.output.exists():
+        parser.error(f"{args.output} already exists; use a new output filename to preserve history")
 
     from sentence_transformers import SentenceTransformer
 
@@ -68,11 +73,25 @@ def main() -> None:
 
     report = {
         "created_at_utc": datetime.now(UTC).isoformat(),
+        "source_commit": subprocess.run(
+            ["git", "rev-parse", "HEAD"], cwd=ROOT, check=True, capture_output=True, text=True
+        ).stdout.strip(),
         "corpus_sha256": corpus_hash,
         "questions_sha256": hashlib.sha256(queries_path.read_bytes()).hexdigest(),
         "question_count": len(questions),
+        "corpus_chunk_count": len(corpus_rows),
         "embedding_model": "all-MiniLM-L6-v2",
+        "postgres_image": "pgvector/pgvector:pg16",
         "retrieval_depth": args.top_k,
+        "hypothesis": args.hypothesis,
+        "rationale": args.rationale,
+        "configuration": {
+            "fts": "websearch_to_tsquery('english') ordered by ts_rank",
+            "dense_distance": "cosine",
+            "hybrid": "reciprocal rank fusion (k=60)",
+            "reranker": None,
+            "metric_cutoffs": [5, 10, 20],
+        },
         "methods": results,
     }
     rendered = json.dumps(report, ensure_ascii=False, indent=2) + "\n"

@@ -1,0 +1,2773 @@
+{
+  "created_at_utc": "2026-11-04T14:03:51.865739+00:00",
+  "corpus_sha256": "4a9051bc2f4b6bef9c80b4655b051dd59956788e0489a94b8d7f0167634526bb",
+  "questions_sha256": "0f8dea878e1177442a0d1e88bcf1774bd5fa915a68c8545dece00261c5547251",
+  "question_count": 50,
+  "embedding_model": "all-MiniLM-L6-v2",
+  "retrieval_depth": 20,
+  "methods": {
+    "fts": {
+      "summary": {
+        "mrr": 0.04,
+        "cutoffs": {
+          "5": {
+            "recall": 0.04,
+            "ndcg": 0.04
+          },
+          "10": {
+            "recall": 0.04,
+            "ndcg": 0.04
+          },
+          "20": {
+            "recall": 0.04,
+            "ndcg": 0.04
+          }
+        }
+      },
+      "per_query": [
+        {
+          "query_id": "dpr-architecture",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "dpr-keyword-vs-semantic",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "dpr-hybrid",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "sbert-embeddings",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "mono-bert-reranking",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "rag-sequence-token",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "ragas-dimensions",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "ragas-context-relevance",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "bert-pretraining",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "hnsw-hierarchy",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "dpr-negative-passages",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "sbert-triplet-loss",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "rag-components",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "rag-bm25-fever",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "ragas-no-reference",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "ragas-faithfulness",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "hnsw-neighbor-selection",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "hnsw-ef-recall",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "hnsw-clustered-data",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "hnsw-memory",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "adam-moments",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "adam-scale-invariance",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "adam-bias-correction",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "attention-scaled-dot-product",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "attention-scaling-purpose",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "attention-position-encoding",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "attention-path-length",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "yolo-regression",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "yolo-grid-output",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "yolo-speed",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "mono-bert-pipeline",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "mono-bert-training-labels",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "ranking-survey-categories",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "ranking-survey-tradeoff",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "ranking-survey-long-documents",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "rag-index-refresh",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "ragas-answer-relevance",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "ragas-wikieval",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "hnsw-efconstruction",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "hnsw-ground-layer-degree",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "adam-step-bound",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "attention-multihead",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "attention-positional-embedding-ablation",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "bert-mask-rate",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "bert-nsp",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "bert-pair-input",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "yolo-box-coordinates",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "yolo-confidence-iou",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "adam-moment-bias",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "rag-parametric-memory",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        }
+      ]
+    },
+    "dense": {
+      "summary": {
+        "mrr": 0.5384420024420025,
+        "cutoffs": {
+          "5": {
+            "recall": 0.6733333333333333,
+            "ndcg": 0.5500354131283359
+          },
+          "10": {
+            "recall": 0.8233333333333333,
+            "ndcg": 0.5973095902448522
+          },
+          "20": {
+            "recall": 0.92,
+            "ndcg": 0.6233272061063411
+          }
+        }
+      },
+      "per_query": [
+        {
+          "query_id": "dpr-architecture",
+          "reciprocal_rank": 0.07692307692307693,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.26264953503719357
+            }
+          }
+        },
+        {
+          "query_id": "dpr-keyword-vs-semantic",
+          "reciprocal_rank": 0.5,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            }
+          }
+        },
+        {
+          "query_id": "dpr-hybrid",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "sbert-embeddings",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.8772153153380493
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.8772153153380493
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.8772153153380493
+            }
+          }
+        },
+        {
+          "query_id": "mono-bert-reranking",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "rag-sequence-token",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "ragas-dimensions",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "ragas-context-relevance",
+          "reciprocal_rank": 0.06666666666666667,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.25
+            }
+          }
+        },
+        {
+          "query_id": "bert-pretraining",
+          "reciprocal_rank": 0.5,
+          "cutoffs": {
+            "5": {
+              "recall": 0.6666666666666666,
+              "ndcg": 0.4776237035032179
+            },
+            "10": {
+              "recall": 0.6666666666666666,
+              "ndcg": 0.4776237035032179
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.5862045766042515
+            }
+          }
+        },
+        {
+          "query_id": "hnsw-hierarchy",
+          "reciprocal_rank": 0.1111111111111111,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.5,
+              "ndcg": 0.18457569677956817
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.34561852186877634
+            }
+          }
+        },
+        {
+          "query_id": "dpr-negative-passages",
+          "reciprocal_rank": 0.5,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            }
+          }
+        },
+        {
+          "query_id": "sbert-triplet-loss",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "rag-components",
+          "reciprocal_rank": 0.3333333333333333,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            }
+          }
+        },
+        {
+          "query_id": "rag-bm25-fever",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "ragas-no-reference",
+          "reciprocal_rank": 0.14285714285714285,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.3333333333333333
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.3333333333333333
+            }
+          }
+        },
+        {
+          "query_id": "ragas-faithfulness",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "hnsw-neighbor-selection",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "hnsw-ef-recall",
+          "reciprocal_rank": 0.5,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            }
+          }
+        },
+        {
+          "query_id": "hnsw-clustered-data",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "hnsw-memory",
+          "reciprocal_rank": 0.25,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.43067655807339306
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.43067655807339306
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.43067655807339306
+            }
+          }
+        },
+        {
+          "query_id": "adam-moments",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "adam-scale-invariance",
+          "reciprocal_rank": 0.5,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            }
+          }
+        },
+        {
+          "query_id": "adam-bias-correction",
+          "reciprocal_rank": 0.16666666666666666,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.3562071871080222
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.3562071871080222
+            }
+          }
+        },
+        {
+          "query_id": "attention-scaled-dot-product",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "attention-scaling-purpose",
+          "reciprocal_rank": 0.5,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            }
+          }
+        },
+        {
+          "query_id": "attention-position-encoding",
+          "reciprocal_rank": 0.3333333333333333,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            }
+          }
+        },
+        {
+          "query_id": "attention-path-length",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "yolo-regression",
+          "reciprocal_rank": 0.25,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.43067655807339306
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.43067655807339306
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.43067655807339306
+            }
+          }
+        },
+        {
+          "query_id": "yolo-grid-output",
+          "reciprocal_rank": 0.5,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            }
+          }
+        },
+        {
+          "query_id": "yolo-speed",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "mono-bert-pipeline",
+          "reciprocal_rank": 0.3333333333333333,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            }
+          }
+        },
+        {
+          "query_id": "mono-bert-training-labels",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "ranking-survey-categories",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "ranking-survey-tradeoff",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "ranking-survey-long-documents",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "rag-index-refresh",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "ragas-answer-relevance",
+          "reciprocal_rank": 0.1,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.2890648263178879
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.2890648263178879
+            }
+          }
+        },
+        {
+          "query_id": "ragas-wikieval",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "hnsw-efconstruction",
+          "reciprocal_rank": 0.1,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.2890648263178879
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.2890648263178879
+            }
+          }
+        },
+        {
+          "query_id": "hnsw-ground-layer-degree",
+          "reciprocal_rank": 0.1,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.2890648263178879
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.2890648263178879
+            }
+          }
+        },
+        {
+          "query_id": "adam-step-bound",
+          "reciprocal_rank": 0.1,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.2890648263178879
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.2890648263178879
+            }
+          }
+        },
+        {
+          "query_id": "attention-multihead",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "attention-positional-embedding-ablation",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "bert-mask-rate",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "bert-nsp",
+          "reciprocal_rank": 0.14285714285714285,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.3333333333333333
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.3333333333333333
+            }
+          }
+        },
+        {
+          "query_id": "bert-pair-input",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "yolo-box-coordinates",
+          "reciprocal_rank": 0.07692307692307693,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.26264953503719357
+            }
+          }
+        },
+        {
+          "query_id": "yolo-confidence-iou",
+          "reciprocal_rank": 0.3333333333333333,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            }
+          }
+        },
+        {
+          "query_id": "adam-moment-bias",
+          "reciprocal_rank": 0.07142857142857142,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.2559580248098155
+            }
+          }
+        },
+        {
+          "query_id": "rag-parametric-memory",
+          "reciprocal_rank": 0.3333333333333333,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            }
+          }
+        }
+      ]
+    },
+    "hybrid_rrf": {
+      "summary": {
+        "mrr": 0.5284420024420025,
+        "cutoffs": {
+          "5": {
+            "recall": 0.6733333333333333,
+            "ndcg": 0.5439039412006814
+          },
+          "10": {
+            "recall": 0.8233333333333333,
+            "ndcg": 0.5911781183171976
+          },
+          "20": {
+            "recall": 0.92,
+            "ndcg": 0.6171957341786865
+          }
+        }
+      },
+      "per_query": [
+        {
+          "query_id": "dpr-architecture",
+          "reciprocal_rank": 0.07692307692307693,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.26264953503719357
+            }
+          }
+        },
+        {
+          "query_id": "dpr-keyword-vs-semantic",
+          "reciprocal_rank": 0.5,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            }
+          }
+        },
+        {
+          "query_id": "dpr-hybrid",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "sbert-embeddings",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.8772153153380493
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.8772153153380493
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.8772153153380493
+            }
+          }
+        },
+        {
+          "query_id": "mono-bert-reranking",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "rag-sequence-token",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "ragas-dimensions",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "ragas-context-relevance",
+          "reciprocal_rank": 0.06666666666666667,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.25
+            }
+          }
+        },
+        {
+          "query_id": "bert-pretraining",
+          "reciprocal_rank": 0.5,
+          "cutoffs": {
+            "5": {
+              "recall": 0.6666666666666666,
+              "ndcg": 0.4776237035032179
+            },
+            "10": {
+              "recall": 0.6666666666666666,
+              "ndcg": 0.4776237035032179
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.5862045766042515
+            }
+          }
+        },
+        {
+          "query_id": "hnsw-hierarchy",
+          "reciprocal_rank": 0.1111111111111111,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.5,
+              "ndcg": 0.18457569677956817
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.34561852186877634
+            }
+          }
+        },
+        {
+          "query_id": "dpr-negative-passages",
+          "reciprocal_rank": 0.5,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            }
+          }
+        },
+        {
+          "query_id": "sbert-triplet-loss",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "rag-components",
+          "reciprocal_rank": 0.3333333333333333,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            }
+          }
+        },
+        {
+          "query_id": "rag-bm25-fever",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "ragas-no-reference",
+          "reciprocal_rank": 0.14285714285714285,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.3333333333333333
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.3333333333333333
+            }
+          }
+        },
+        {
+          "query_id": "ragas-faithfulness",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "hnsw-neighbor-selection",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "hnsw-ef-recall",
+          "reciprocal_rank": 0.5,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            }
+          }
+        },
+        {
+          "query_id": "hnsw-clustered-data",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "hnsw-memory",
+          "reciprocal_rank": 0.25,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.43067655807339306
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.43067655807339306
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.43067655807339306
+            }
+          }
+        },
+        {
+          "query_id": "adam-moments",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "adam-scale-invariance",
+          "reciprocal_rank": 0.5,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            }
+          }
+        },
+        {
+          "query_id": "adam-bias-correction",
+          "reciprocal_rank": 0.16666666666666666,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.3562071871080222
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.3562071871080222
+            }
+          }
+        },
+        {
+          "query_id": "attention-scaled-dot-product",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "attention-scaling-purpose",
+          "reciprocal_rank": 0.5,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            }
+          }
+        },
+        {
+          "query_id": "attention-position-encoding",
+          "reciprocal_rank": 0.3333333333333333,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            }
+          }
+        },
+        {
+          "query_id": "attention-path-length",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "yolo-regression",
+          "reciprocal_rank": 0.25,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.43067655807339306
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.43067655807339306
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.43067655807339306
+            }
+          }
+        },
+        {
+          "query_id": "yolo-grid-output",
+          "reciprocal_rank": 0.5,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.6309297535714575
+            }
+          }
+        },
+        {
+          "query_id": "yolo-speed",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "mono-bert-pipeline",
+          "reciprocal_rank": 0.3333333333333333,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            }
+          }
+        },
+        {
+          "query_id": "mono-bert-training-labels",
+          "reciprocal_rank": 0.0,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            }
+          }
+        },
+        {
+          "query_id": "ranking-survey-categories",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "ranking-survey-tradeoff",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "ranking-survey-long-documents",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "rag-index-refresh",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "ragas-answer-relevance",
+          "reciprocal_rank": 0.1,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.2890648263178879
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.2890648263178879
+            }
+          }
+        },
+        {
+          "query_id": "ragas-wikieval",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "hnsw-efconstruction",
+          "reciprocal_rank": 0.1,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.2890648263178879
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.2890648263178879
+            }
+          }
+        },
+        {
+          "query_id": "hnsw-ground-layer-degree",
+          "reciprocal_rank": 0.1,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.2890648263178879
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.2890648263178879
+            }
+          }
+        },
+        {
+          "query_id": "adam-step-bound",
+          "reciprocal_rank": 0.1,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.2890648263178879
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.2890648263178879
+            }
+          }
+        },
+        {
+          "query_id": "attention-multihead",
+          "reciprocal_rank": 0.5,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.6934264036172708
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.6934264036172708
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.6934264036172708
+            }
+          }
+        },
+        {
+          "query_id": "attention-positional-embedding-ablation",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "bert-mask-rate",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "bert-nsp",
+          "reciprocal_rank": 0.14285714285714285,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.3333333333333333
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.3333333333333333
+            }
+          }
+        },
+        {
+          "query_id": "bert-pair-input",
+          "reciprocal_rank": 1.0,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 1.0
+            }
+          }
+        },
+        {
+          "query_id": "yolo-box-coordinates",
+          "reciprocal_rank": 0.07692307692307693,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.26264953503719357
+            }
+          }
+        },
+        {
+          "query_id": "yolo-confidence-iou",
+          "reciprocal_rank": 0.3333333333333333,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            }
+          }
+        },
+        {
+          "query_id": "adam-moment-bias",
+          "reciprocal_rank": 0.07142857142857142,
+          "cutoffs": {
+            "5": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "10": {
+              "recall": 0.0,
+              "ndcg": 0.0
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.2559580248098155
+            }
+          }
+        },
+        {
+          "query_id": "rag-parametric-memory",
+          "reciprocal_rank": 0.3333333333333333,
+          "cutoffs": {
+            "5": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            },
+            "10": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            },
+            "20": {
+              "recall": 1.0,
+              "ndcg": 0.5
+            }
+          }
+        }
+      ]
+    }
+  }
+}

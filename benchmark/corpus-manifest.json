@@ -1,10 +1,11 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "preprocessing": {
     "extractor": "PyMuPDF",
     "chunk_size": 1500,
     "chunk_overlap": 150,
-    "validity_filter": "app.ingest.is_valid_chunk"
+    "validity_filter": "app.ingest.is_valid_chunk",
+    "duplicate_policy": "exact PDF SHA-256; keep first filename lexically"
   },
   "sources": [
     {
@@ -48,14 +49,16 @@
       "sha256": "5692a5514787a8c6727b4ff3b726a3385798bc68e12138d1d4af83947e2acf6e"
     },
     {
-      "source": "rag.pdf",
-      "sha256": "23e3249e9a1e75418d82efecab0ea8c4d033b89c93742f63208d47ce01f21233"
-    },
-    {
       "source": "yolo.pdf",
       "sha256": "54bcd2dd05dc618849e8a94d8b88fe3eeb37f80e96e200600d38f1f733931678"
     }
   ],
-  "chunk_count": 245,
-  "corpus_sha256": "10e4ceedf1b604a07100c58279a6f2c861a6abd7f595012e040203443d2360b7"
+  "excluded_duplicates": [
+    {
+      "source": "rag.pdf",
+      "duplicate_of": "05_rag_original_2020.pdf"
+    }
+  ],
+  "chunk_count": 228,
+  "corpus_sha256": "4a9051bc2f4b6bef9c80b4655b051dd59956788e0489a94b8d7f0167634526bb"
 }

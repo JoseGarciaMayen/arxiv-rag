@@ -1689,5 +1689,22 @@
         }
       ]
     }
+  },
+  "hypothesis": "Historical initial pilot baseline before duplicate removal and query expansion",
+  "rationale": "Captured the first 30-query run; retained for transparency, not directly comparable to later dataset versions.",
+  "source_commit": "1a82b38",
+  "corpus_chunk_count": 245,
+  "postgres_image": "pgvector/pgvector:pg16",
+  "configuration": {
+    "fts": "websearch_to_tsquery('english') ordered by ts_rank",
+    "dense_distance": "cosine",
+    "hybrid": "reciprocal rank fusion (k=60)",
+    "reranker": null,
+    "metric_cutoffs": [
+      5,
+      10,
+      20
+    ],
+    "embedding_model": "all-MiniLM-L6-v2"
   }
 }
