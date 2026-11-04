@@ -8,6 +8,7 @@ from app.query import (
     reciprocal_rank_fusion,
     rerank,
     rewrite_query,
+    search_chunks_fts,
 )
 
 
@@ -70,6 +71,20 @@ class TestRerank:
 
     def test_empty_input_returns_empty(self):
         assert rerank("question", []) == []
+
+
+class TestFullTextSearch:
+    def test_uses_postgres_full_text_search_and_ts_rank(self):
+        engine = MagicMock()
+        connection = engine.connect.return_value.__enter__.return_value
+        connection.execute.return_value = [(7, "chunk", "paper.pdf", 0.4)]
+
+        result = search_chunks_fts("attention mechanism", engine)
+
+        statement = str(connection.execute.call_args.args[0])
+        assert "websearch_to_tsquery" in statement
+        assert "ts_rank" in statement
+        assert result == [{"id": 7, "content": "chunk", "source": "paper.pdf"}]
 
 
 class TestRewriteQuery:

@@ -59,7 +59,7 @@ User Question
       ↓
 Query Rewriting (configured LLM provider)
       ↓
-      ├─► Plain text ─────────► BM25 / PostgreSQL FTS ──┐
+      ├─► Plain text ─────────► PostgreSQL FTS (ts_rank) ─┐
       │                                                  ├─► RRF Fusion (top-20)
       └─► Embedding ──────────► Vector Search (pgvector)─┘
                                                                     ↓
@@ -75,7 +75,7 @@ This system addresses that with a three-stage retrieval pipeline:
 **1. Hybrid retrieval**
 
 The question is searched two ways simultaneously:
-- **Keyword search (BM25)**: PostgreSQL matches exact and related terms in the text, the same way a search engine does. Great for specific terminology, model names, author names.
+- **Keyword search (PostgreSQL FTS)**: `websearch_to_tsquery` matches terms and `ts_rank` orders them. It is PostgreSQL full-text search, not BM25; it can help with specific terminology, model names, and author names.
 - **Semantic search**: the question is converted to an embedding (a numerical representation of its meaning) and compared against all stored chunk embeddings. Great for conceptual matches even when the wording differs.
 
 Neither approach is strictly better, they catch different things. Running both maximises recall.

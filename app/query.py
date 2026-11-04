@@ -27,7 +27,7 @@ def search_chunks_dense(question: str, engine, top_k: int = 20) -> list[dict]:
         return [{"id": row[0], "content": row[1], "source": row[2]} for row in result]
 
 
-def search_chunks_bm25(question: str, engine, top_k: int = 20) -> list[dict]:
+def search_chunks_fts(question: str, engine, top_k: int = 20) -> list[dict]:
     with engine.connect() as conn:
         result = conn.execute(
             text("""
@@ -68,8 +68,8 @@ def rerank(question: str, chunks: list[dict]) -> list[dict]:
 
 def search_chunks(question: str, engine, top_k: int = 5) -> list[dict]:
     dense = search_chunks_dense(question, engine, top_k=20)
-    bm25 = search_chunks_bm25(question, engine, top_k=20)
-    candidates = reciprocal_rank_fusion([dense, bm25])[:20]
+    fts = search_chunks_fts(question, engine, top_k=20)
+    candidates = reciprocal_rank_fusion([dense, fts])[:20]
     return rerank(question, candidates)[:top_k]
 
 
