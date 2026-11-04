@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "preprocessing": {
+    "extractor": "PyMuPDF",
+    "chunk_size": 1500,
+    "chunk_overlap": 150,
+    "validity_filter": "app.ingest.is_valid_chunk"
+  },
+  "sources": [
+    {
+      "source": "01_monobert_reranking_2019.pdf",
+      "sha256": "b3f05b72d6d24b00761fb0a7363b6e7a10dac22b7f0abfaf4f5025bea7f8e22e"
+    },
+    {
+      "source": "02_dpr_dense_retrieval_2020.pdf",
+      "sha256": "3e67fc1a9977715acf722d85f0b7d124b03715e975f6310a4d6c12094190912f"
+    },
+    {
+      "source": "03_sentence_bert_2019.pdf",
+      "sha256": "92366d22fc0521350d6cbe0ad72bcee754f90e88181d7b4a8e2adb1e7e594fec"
+    },
+    {
+      "source": "04_text_ranking_survey_2021.pdf",
+      "sha256": "45517e237075f18dae9e4c7238cec9377e10d92142483f95bde5dd33eb268c4b"
+    },
+    {
+      "source": "05_rag_original_2020.pdf",
+      "sha256": "23e3249e9a1e75418d82efecab0ea8c4d033b89c93742f63208d47ce01f21233"
+    },
+    {
+      "source": "06_ragas_2023.pdf",
+      "sha256": "6c24762a3f277fd120ed1adf34b01420ecf92f18ff6d1b5435fa0a09cb804ecb"
+    },
+    {
+      "source": "07_hnsw_ann_2016.pdf",
+      "sha256": "f78da128a3ea9ac08d37cfe6c4b641f371f88adb677d6d2bf637d90bad8d414a"
+    },
+    {
+      "source": "adam_optimizer.pdf",
+      "sha256": "eab9c73ae2ceda884b94830bda99312254bac4806f6c9f045cbab90721ecda31"
+    },
+    {
+      "source": "attention_is_all_you_need.pdf",
+      "sha256": "bdfaa68d8984f0dc02beaca527b76f207d99b666d31d1da728ee0728182df697"
+    },
+    {
+      "source": "bert.pdf",
+      "sha256": "5692a5514787a8c6727b4ff3b726a3385798bc68e12138d1d4af83947e2acf6e"
+    },
+    {
+      "source": "rag.pdf",
+      "sha256": "23e3249e9a1e75418d82efecab0ea8c4d033b89c93742f63208d47ce01f21233"
+    },
+    {
+      "source": "yolo.pdf",
+      "sha256": "54bcd2dd05dc618849e8a94d8b88fe3eeb37f80e96e200600d38f1f733931678"
+    }
+  ],
+  "chunk_count": 245,
+  "corpus_sha256": "10e4ceedf1b604a07100c58279a6f2c861a6abd7f595012e040203443d2360b7"
+}

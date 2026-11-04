@@ -8,8 +8,6 @@ from dotenv import load_dotenv
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from sqlalchemy import create_engine, text
 
-from app.models import EMBED_MODEL
-
 load_dotenv()
 DB_URL = os.getenv("DATABASE_URL")
 
@@ -140,6 +138,8 @@ def is_valid_chunk(chunk: str) -> bool:
 
 
 def embed_and_store(chunks: list[str], source: str, engine) -> int:
+    from app.models import EMBED_MODEL
+
     if engine is None:
         engine = create_engine(DB_URL)
     clean_source = source.replace("\x00", "")
