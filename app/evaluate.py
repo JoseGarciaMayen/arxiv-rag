@@ -13,7 +13,7 @@ from ragas.run_config import RunConfig
 from sqlalchemy import create_engine
 
 from app.llm_client import create_langchain_llm, settings_from_env
-from app.query import query, search_chunks
+from app.query import query_with_context
 
 load_dotenv()
 
@@ -21,8 +21,7 @@ SLEEP_BETWEEN_QUESTIONS = 65
 
 
 def evaluate_question(question: str, engine, llm, embeddings) -> float:
-    chunks = search_chunks(question, engine)
-    answer = query(question, engine)
+    answer, chunks = query_with_context(question, engine)
     dataset = Dataset.from_list(
         [
             {

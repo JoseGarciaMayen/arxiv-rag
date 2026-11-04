@@ -4,6 +4,7 @@ import pytest
 
 from app.query import (
     build_system_message,
+    query_with_context,
     reciprocal_rank_fusion,
     rerank,
     rewrite_query,
@@ -105,3 +106,45 @@ class TestRewriteQuery:
             rewrite_query("question", [{"role": "user", "content": "prior"}])
 
         q.llm_client = original_client
+
+
+class TestQueryWithContext:
+    def test_returns_the_chunks_used_to_generate_the_answer(self, monkeypatch):
+        import app.query as q
+
+        engine = MagicMock()
+        history = [{"role": "user", "content": "earlier question"}]
+        chunks = [_chunk(1, content="Relevant paper passage")]
+        response = MagicMock()
+        response.choices = [MagicMock(message=MagicMock(content="grounded answer"))]
+        client = MagicMock()
+        client.chat.completions.create.return_value = response
+
+        monkeypatch.setattr(q, "rewrite_query", lambda question, history: "rewritten query")
+        search = MagicMock(return_value=chunks)
+        monkeypatch.setattr(q, "search_chunks", search)
+        monkeypatch.setattr(q, "llm_client", client)
+
+        answer, retrieved = query_with_context("original question", engine, history)
+
+        assert answer == "grounded answer"
+        assert retrieved is chunks
+        search.assert_called_once_with("rewritten query", engine)
+        request = client.chat.completions.create.call_args.kwargs
+        assert request["messages"][0]["content"] == q.build_system_message(chunks)
+
+    def test_no_results_returns_empty_context_without_generating(self, monkeypatch):
+        import app.query as q
+
+        client = MagicMock()
+        monkeypatch.setattr(q, "rewrite_query", lambda question, history: question)
+        monkeypatch.setattr(q, "search_chunks", MagicMock(return_value=[]))
+        monkeypatch.setattr(q, "llm_client", client)
+
+        answer, retrieved = query_with_context("unknown question", MagicMock())
+
+        assert answer == (
+            "I couldn't find relevant information in the indexed papers for that question."
+        )
+        assert retrieved == []
+        client.chat.completions.create.assert_not_called()

@@ -112,14 +112,18 @@ def rewrite_query(question: str, history: list[dict]) -> str:
     return response.choices[0].message.content.strip()
 
 
-def query(question: str, engine=None, history: list[dict] | None = None) -> str:
+def query_with_context(
+    question: str,
+    engine=None,
+    history: list[dict] | None = None,
+) -> tuple[str, list[dict]]:
     if engine is None:
         engine = create_engine(DB_URL)
     search_query = rewrite_query(question, history or [])
     chunks = search_chunks(search_query, engine)
 
     if not chunks:
-        return "I couldn't find relevant information in the indexed papers for that question."
+        return "I couldn't find relevant information in the indexed papers for that question.", []
 
     messages = (
         [{"role": "system", "content": build_system_message(chunks)}]
@@ -134,7 +138,12 @@ def query(question: str, engine=None, history: list[dict] | None = None) -> str:
     )
     if not response.choices:
         raise ValueError(f"{LLM_SETTINGS.provider} returned no choices")
-    return response.choices[0].message.content
+    return response.choices[0].message.content, chunks
+
+
+def query(question: str, engine=None, history: list[dict] | None = None) -> str:
+    answer, _ = query_with_context(question, engine, history)
+    return answer
 
 
 def stream_query(question: str, engine=None, history: list[dict] | None = None):
