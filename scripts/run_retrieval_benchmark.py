@@ -56,11 +56,13 @@ def main() -> None:
     if unknown:
         parser.error(f"{len(unknown)} relevance labels do not exist in the frozen corpus")
 
-    from app.models import EMBED_MODEL
+    from sentence_transformers import SentenceTransformer
+
+    embedder = SentenceTransformer("all-MiniLM-L6-v2")
 
     engine = create_engine(database_url)
     try:
-        results = compare_retrievers(questions, engine, EMBED_MODEL, args.top_k)
+        results = compare_retrievers(questions, engine, embedder, args.top_k)
     finally:
         engine.dispose()
 
@@ -69,6 +71,7 @@ def main() -> None:
         "corpus_sha256": corpus_hash,
         "questions_sha256": hashlib.sha256(queries_path.read_bytes()).hexdigest(),
         "question_count": len(questions),
+        "embedding_model": "all-MiniLM-L6-v2",
         "retrieval_depth": args.top_k,
         "methods": results,
     }

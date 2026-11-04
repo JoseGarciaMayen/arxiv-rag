@@ -15,8 +15,17 @@ relevant chunk IDs. The labels are binary: a chunk is relevant if it contains
 evidence that directly answers the question. These annotations must be reviewed
 by a human when changed; do not generate them automatically.
 
-Run the comparison against a **local PostgreSQL/pgvector database** containing
-these PDFs after ingesting them with the app:
+Start a dedicated local PostgreSQL/pgvector service (the separate Compose
+project name gives it its own persistent volume):
+
+```bash
+sudo docker compose -p arxiv-rag-benchmark up -d db
+uv run python scripts/load_retrieval_benchmark_corpus.py \
+  --database-url postgresql://rag:rag@localhost:5432/arxiv \
+```
+
+This loads the frozen corpus into an isolated `benchmark_chunks` table; it
+doesn't delete or modify the app's `chunks` table. Then run the comparison:
 
 ```bash
 uv run python scripts/run_retrieval_benchmark.py \
@@ -27,10 +36,10 @@ uv run python scripts/run_retrieval_benchmark.py \
 The runner compares PostgreSQL FTS (`ts_rank`), dense vector retrieval, and
 their RRF hybrid using the same 30 queries. It reports macro Recall@5/10/20,
 MRR, and nDCG@5/10/20. Results include the corpus and question-file hashes.
-It refuses non-local database hosts and never loads `.env`; no remote database
-or LLM API is needed. The local database must contain the benchmark documents
-with embeddings for dense search. Results are generated output and should only
-be committed intentionally after reviewing them.
+Both scripts refuse non-local database hosts and never load `.env`; no remote
+database or LLM API is needed. Dense vectors use the app's `all-MiniLM-L6-v2`
+embedding model. Results are generated output and should only be committed
+intentionally after reviewing them.
 
 The benchmark corpus includes the local PDFs as-is, including duplicate copies
 where present. This preserves a transparent mapping to the repository sources;

@@ -17,7 +17,7 @@ def stable_chunk_id(source: str, content: str) -> str:
 def search_fts(question: str, engine, top_k: int) -> list[str]:
     statement = text("""
         SELECT source, content
-        FROM chunks
+        FROM benchmark_chunks
         WHERE content_tsv @@ websearch_to_tsquery('english', :query)
         ORDER BY ts_rank(content_tsv, websearch_to_tsquery('english', :query)) DESC
         LIMIT :top_k
@@ -31,7 +31,7 @@ def search_dense(question: str, engine, embedder, top_k: int) -> list[str]:
     vector = str(embedder.encode(question).tolist())
     statement = text("""
         SELECT source, content
-        FROM chunks
+        FROM benchmark_chunks
         ORDER BY embedding <=> CAST(:embedding AS vector)
         LIMIT :top_k
     """)
