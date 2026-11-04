@@ -127,7 +127,7 @@ cd arxiv-rag
 
 `setup.sh` asks which chat provider to use (`groq` or `deepseek`) and for the corresponding API credentials, then builds the images and starts everything. Groq remains the default. For DeepSeek, enter the exact model ID enabled for your API account; requests use the OpenAI-compatible API at `https://api.deepseek.com`.
 
-You can also configure `.env` directly with `LLM_PROVIDER`, `GROQ_API_KEY` / `GROQ_MODEL`, or `DEEPSEEK_API_KEY` / `DEEPSEEK_MODEL`. `LLM_PROVIDER` selects query rewriting and answer generation. The current RAGAS evaluation judge still uses Groq.
+You can also configure `.env` directly with `LLM_PROVIDER`, `GROQ_API_KEY` / `GROQ_MODEL`, or `DEEPSEEK_API_KEY` / `DEEPSEEK_MODEL`. `LLM_PROVIDER` selects the provider for query rewriting, answer generation, and the RAGAS evaluation judge.
 
 | URL | What |
 |---|---|

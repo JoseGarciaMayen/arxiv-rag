@@ -5,6 +5,8 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 
 from groq import Groq
+from langchain_groq import ChatGroq
+from langchain_openai import ChatOpenAI
 from openai import OpenAI
 
 
@@ -51,4 +53,23 @@ def create_llm_client(settings: LLMSettings):
         return Groq(api_key=settings.api_key)
     if settings.provider == "deepseek":
         return OpenAI(api_key=settings.api_key, base_url=settings.base_url)
+    raise ValueError(f"Unsupported LLM provider: {settings.provider}")
+
+
+def create_langchain_llm(settings: LLMSettings):
+    if settings.provider == "groq":
+        return ChatGroq(
+            model=settings.model,
+            api_key=settings.api_key,
+            request_timeout=120,
+            max_tokens=2048,
+        )
+    if settings.provider == "deepseek":
+        return ChatOpenAI(
+            model=settings.model,
+            api_key=settings.api_key,
+            base_url=settings.base_url,
+            timeout=120,
+            max_tokens=2048,
+        )
     raise ValueError(f"Unsupported LLM provider: {settings.provider}")

@@ -4,7 +4,6 @@ import time
 
 from datasets import Dataset
 from dotenv import load_dotenv
-from langchain_groq import ChatGroq
 from langchain_huggingface import HuggingFaceEmbeddings
 from ragas import evaluate
 from ragas.embeddings import LangchainEmbeddingsWrapper
@@ -13,11 +12,11 @@ from ragas.metrics import answer_relevancy
 from ragas.run_config import RunConfig
 from sqlalchemy import create_engine
 
+from app.llm_client import create_langchain_llm, settings_from_env
 from app.query import query, search_chunks
 
 load_dotenv()
 
-GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
 SLEEP_BETWEEN_QUESTIONS = 65
 
 
@@ -47,14 +46,7 @@ def evaluate_question(question: str, engine, llm, embeddings) -> float:
 def run_evaluation(questions: list[str]):
     engine = create_engine(os.getenv("DATABASE_URL"))
 
-    llm = LangchainLLMWrapper(
-        ChatGroq(
-            model=GROQ_MODEL,
-            api_key=os.getenv("GROQ_API_KEY"),
-            request_timeout=120,
-            max_tokens=2048,
-        )
-    )
+    llm = LangchainLLMWrapper(create_langchain_llm(settings_from_env()))
     embeddings = LangchainEmbeddingsWrapper(HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2"))
 
     scores = []

@@ -63,3 +63,40 @@ def test_client_factory_selects_sdk(monkeypatch):
 def test_unknown_provider_is_rejected():
     with pytest.raises(RuntimeError, match="Unsupported LLM_PROVIDER"):
         settings_from_env({"LLM_PROVIDER": "unknown"})
+
+
+def test_langchain_factory_uses_the_selected_provider(monkeypatch):
+    import app.llm_client as llm
+
+    groq_model = MagicMock()
+    groq_factory = MagicMock(return_value=groq_model)
+    monkeypatch.setattr(llm, "ChatGroq", groq_factory)
+    groq_settings = settings_from_env({"GROQ_API_KEY": "test-groq"})
+
+    assert llm.create_langchain_llm(groq_settings) is groq_model
+    groq_factory.assert_called_once_with(
+        model="qwen/qwen3.8-27b",
+        api_key="test-groq",
+        request_timeout=120,
+        max_tokens=2048,
+    )
+
+    deepseek_model = MagicMock()
+    deepseek_factory = MagicMock(return_value=deepseek_model)
+    monkeypatch.setattr(llm, "ChatOpenAI", deepseek_factory)
+    deepseek_settings = settings_from_env(
+        {
+            "LLM_PROVIDER": "deepseek",
+            "DEEPSEEK_API_KEY": "test-deepseek",
+            "DEEPSEEK_MODEL": "deepseek-flash",
+        }
+    )
+
+    assert llm.create_langchain_llm(deepseek_settings) is deepseek_model
+    deepseek_factory.assert_called_once_with(
+        model="deepseek-flash",
+        api_key="test-deepseek",
+        base_url="https://api.deepseek.com",
+        timeout=120,
+        max_tokens=2048,
+    )
