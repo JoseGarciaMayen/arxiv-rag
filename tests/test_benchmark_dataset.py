@@ -4,7 +4,10 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 ROOT = Path(__file__).resolve().parents[1]
+HAS_SOURCE_PDFS = any((ROOT / "docs").glob("*.pdf"))
 
 
 def test_frozen_corpus_manifest_and_labels_are_consistent():
@@ -32,6 +35,10 @@ def test_frozen_corpus_manifest_and_labels_are_consistent():
     assert len({source["sha256"] for source in manifest["sources"]}) == len(manifest["sources"])
 
 
+@pytest.mark.skipif(
+    not HAS_SOURCE_PDFS,
+    reason="source PDFs are not tracked, so the corpus cannot be regenerated here",
+)
 def test_corpus_builder_is_deterministic():
     corpus_before = (ROOT / "benchmark/corpus.jsonl").read_bytes()
     manifest_before = (ROOT / "benchmark/corpus-manifest.json").read_bytes()

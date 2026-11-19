@@ -20,11 +20,15 @@ def sha256(data: bytes) -> str:
 def main() -> None:
     from app.ingest import chunk_text, clean_text, extract_text, is_valid_chunk
 
+    pdfs = sorted(PDF_DIR.glob("*.pdf"))
+    if not pdfs:
+        sys.exit(f"No PDFs in {PDF_DIR}; the corpus is built from local files and was not written")
+
     sources = []
     duplicates = []
     rows = []
     source_by_hash = {}
-    for pdf in sorted(PDF_DIR.glob("*.pdf")):
+    for pdf in pdfs:
         pdf_hash = sha256(pdf.read_bytes())
         if pdf_hash in source_by_hash:
             duplicates.append({"source": pdf.name, "duplicate_of": source_by_hash[pdf_hash]})
